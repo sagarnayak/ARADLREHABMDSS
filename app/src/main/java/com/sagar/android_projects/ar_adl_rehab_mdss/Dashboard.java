@@ -1,11 +1,13 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -47,7 +49,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
-            logout();
+            showLogout();
             return true;
         }
         return false;
@@ -89,8 +91,29 @@ public class Dashboard extends AppCompatActivity {
         }
     }
 
-    private void logout() {
+    private void showLogout() {
         Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show();
+        final AlertDialog alertDialogLogout = new AlertDialog.Builder(Dashboard.this).create();
+        alertDialogLogout.setTitle("Logout");
+        alertDialogLogout.setMessage("Do you want to logout ?");
+        alertDialogLogout.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+                alertDialogLogout.dismiss();
+            }
+        });
+        alertDialogLogout.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialogLogout.dismiss();
+            }
+        });
+        alertDialogLogout.show();
+    }
+
+    private void logout() {
+
     }
 
 }

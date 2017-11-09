@@ -5,4 +5,5 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF4081</color>
     <color name="deep_orange_500">#FF5722</color>
+    <color name="grey_700">#616161</color>
 </resources>
