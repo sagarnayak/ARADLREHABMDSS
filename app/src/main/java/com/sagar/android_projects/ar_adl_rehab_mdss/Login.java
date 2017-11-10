@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.Keyword;
+
 public class Login extends AppCompatActivity {
 
     private EditText editTextUserName;
@@ -30,7 +32,31 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isLoggedIn())
+            gotoDashBoard();
+    }
+
     private void gotoDashBoard() {
         startActivity(new Intent(Login.this, Dashboard.class));
+    }
+
+    private void loginSuccessFull() {
+        getSharedPreferences(Keyword.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
+                .edit()
+                .putBoolean(Keyword.IS_LOGGED_IN, true)
+                .apply();
+    }
+
+    private boolean isLoggedIn() {
+        try {
+            if (getSharedPreferences(Keyword.SHARED_PREFERENCE_NAME, MODE_PRIVATE).getBoolean(Keyword.IS_LOGGED_IN, false))
+                return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

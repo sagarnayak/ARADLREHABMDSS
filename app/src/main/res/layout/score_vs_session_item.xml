@@ -15,8 +15,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:id="@+id/view_row_one_score_vs_session_item"
@@ -34,6 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="21/11/2017"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"/>
 
@@ -43,6 +45,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="203"
                 card_view:layout_constraintRight_toRightOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"/>
         </android.support.constraint.ConstraintLayout>
