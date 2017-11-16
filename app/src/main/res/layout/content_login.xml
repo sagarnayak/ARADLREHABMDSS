@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +8,17 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.sagar.android_projects.ar_adl_rehab_mdss.Login"
     tools:showIn="@layout/activity_login">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:alpha="0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/login_bg" />
 
     <TextView
         android:id="@+id/textview_app_name_login"
@@ -22,7 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3"/>
+        app:layout_constraintVertical_bias=".3" />
 
     <EditText
         android:id="@+id/edittext_username_login"
@@ -42,7 +52,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_app_name_login"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
         android:id="@+id/edittext_password_login"
@@ -61,7 +71,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_username_login"/>
+        app:layout_constraintTop_toBottomOf="@+id/edittext_username_login" />
 
     <Button
         android:id="@+id/button_login"
@@ -75,6 +85,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_password_login"/>
+        app:layout_constraintTop_toBottomOf="@+id/edittext_password_login" />
 
 </android.support.constraint.ConstraintLayout>
