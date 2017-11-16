@@ -1,6 +1,7 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,10 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientList;
+import com.sagar.android_projects.ar_adl_rehab_mdss.frags.GameListFragment;
+import com.sagar.android_projects.ar_adl_rehab_mdss.frags.PatientListFragment;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.Keyword;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity implements AdapterPatientList.AdapterPatientListCallback{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -113,6 +119,16 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void logout() {
+        getSharedPreferences(Keyword.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
+                .edit()
+                .putBoolean(Keyword.IS_LOGGED_IN, false)
+                .apply();
+        startActivity(new Intent(Dashboard.this, Login.class));
+        finish();
+    }
+
+    @Override
+    public void itemClickedInAdapterPatientList(String userId) {
 
     }
 
