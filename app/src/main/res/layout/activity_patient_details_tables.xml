@@ -73,6 +73,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progressbar_patient_details"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_anchor="@id/recyclerview_patient_detail"
+        app:layout_anchorGravity="top"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_patient_detail"
         android:layout_width="match_parent"
