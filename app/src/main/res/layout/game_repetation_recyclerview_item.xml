@@ -5,23 +5,23 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textview_game_name_recyclerview_data_game_comp"
+        android:id="@+id/textview_score_game_repetation_recyclerview_item"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:padding="12dp"
-        android:text="Eat"
+        android:text="185"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:id="@+id/textview_reps_recyclerview_data_game_comp"
+        android:id="@+id/textview_reps_game_repetation_recyclerview_item"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:padding="12dp"
-        android:text="3"
+        android:text="2"
         app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
