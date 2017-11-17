@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginRequest;
@@ -25,6 +26,7 @@ public class Login extends AppCompatActivity {
     private EditText editTextPassword;
     @SuppressWarnings("FieldCanBeLocal")
     private Button buttonLogin;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class Login extends AppCompatActivity {
         editTextUserName = findViewById(R.id.edittext_username_login);
         editTextPassword = findViewById(R.id.edittext_password_login);
         buttonLogin = findViewById(R.id.button_login);
+        progressBar = findViewById(R.id.progressbar_patient_details);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +53,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                progressBar.setVisibility(View.VISIBLE);
                 login(editTextUserName.getText().toString().trim(),
                         editTextPassword.getText().toString().trim());
             }
@@ -72,11 +76,13 @@ public class Login extends AppCompatActivity {
                         } else {
                             Toast.makeText(Login.this, "Login failed", Toast.LENGTH_SHORT).show();
                         }
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         Toast.makeText(Login.this, "Login failed. please try again later", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }

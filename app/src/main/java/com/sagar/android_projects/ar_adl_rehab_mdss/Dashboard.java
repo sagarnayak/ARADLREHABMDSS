@@ -102,14 +102,16 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
         final AlertDialog alertDialogLogout = new AlertDialog.Builder(Dashboard.this).create();
         alertDialogLogout.setTitle("Logout");
         alertDialogLogout.setMessage("Do you want to logout ?");
-        alertDialogLogout.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+        alertDialogLogout.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 logout();
                 alertDialogLogout.dismiss();
             }
         });
-        alertDialogLogout.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+        alertDialogLogout.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alertDialogLogout.dismiss();

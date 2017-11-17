@@ -35,7 +35,7 @@ public class PatientDetailsTables extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new AdapterPatientDetailsList());
+        recyclerView.setAdapter(new AdapterPatientDetailsList(this));
     }
 
 }
