@@ -4,12 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by sagar on 11/16/2017.
+ * {"status":"success","message":"Packages Found","data":""}
  */
 public class LoginResponse {
 
     public enum Response {
-        SUCCESS("Success"),
-        FAIL("Fail");
+        SUCCESS("success"),
+        FAIL("fail");
 
         private String code;
 
@@ -22,21 +23,43 @@ public class LoginResponse {
         }
     }
 
-    @SerializedName("result")
-    private String result;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("message")
+    private String message;
+    @SerializedName("data")
+    private String data;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(String result) {
-        this.result = result;
+    public LoginResponse(String status, String message, String data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
     }
 
-    public String getResult() {
-        return result;
+    public String getStatus() {
+        return status;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

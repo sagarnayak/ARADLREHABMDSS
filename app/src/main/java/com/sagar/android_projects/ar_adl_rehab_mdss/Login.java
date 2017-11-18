@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                         if (response.isSuccessful()) {
-                            if (response.body().getResult().equals(LoginResponse.Response.SUCCESS.getCode())) {
+                            if (response.body().getStatus().equals(LoginResponse.Response.SUCCESS.getCode())) {
                                 loginSuccessFull();
                                 gotoDashBoard();
                             } else {

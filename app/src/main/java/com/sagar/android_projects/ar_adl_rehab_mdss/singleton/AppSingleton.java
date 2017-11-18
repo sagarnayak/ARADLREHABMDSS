@@ -1,7 +1,9 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss.singleton;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.sagar.android_projects.ar_adl_rehab_mdss.BuildConfig;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.URLs;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.ApiInterface;
 
@@ -20,8 +22,17 @@ public class AppSingleton extends Application {
     public void onCreate() {
         super.onCreate();
 
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(
+                new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(String message) {
+                        Log.i("MDSS_OkHttpLog", String.valueOf(message));
+                    }
+                }
+        );
+        if (BuildConfig.DEBUG) {
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        }
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .build();

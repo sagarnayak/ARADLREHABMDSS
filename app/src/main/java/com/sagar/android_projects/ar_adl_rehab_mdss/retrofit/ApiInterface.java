@@ -27,42 +27,42 @@ import retrofit2.http.Query;
  */
 public interface ApiInterface {
 
-    @POST("/login")
+    @POST("login.php")
     public Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @GET("/userList/{offset}/{count}")
+    @GET("userList/{offset}/{count}")
     public Call<UserListResponse> userList(@Path("offset") String offset, @Path("count") String count);
 
-    @GET("/gameList/{offset}/{count}")
+    @GET("gameList/{offset}/{count}")
     public Call<GameList> gameList(@Path("offset") String offset, @Path("count") String count);
 
-    @GET("/dashboardData/{userId}")
+    @GET("dashboardData/{userId}")
     public Call<DashboardData> dashboadData(@Path("userId") String userId);
 
-    @GET("/dailyReport/{gameId}/{offset}/{count}")
+    @GET("dailyReport/{gameId}/{offset}/{count}")
     public Call<DailyReport> dailyReport(@Path("gameId") String gameId,
                                          @Path("offset") String offset,
                                          @Path("count") String count,
                                          @Query("from") String from,
                                          @Query("to") String to);
 
-    @GET("/trainingFrequency/{offset}/{count}")
+    @GET("trainingFrequency/{offset}/{count}")
     public Call<TrainingFrequencyList> trainingFrequency(@Path("offset") String offset,
                                                          @Path("count") String count,
                                                          @Query("from") String from,
                                                          @Query("to") String to);
 
-    @GET("/agmeComparison/{offset}/{count}")
+    @GET("agmeComparison/{offset}/{count}")
     public Call<ArrayList<GameComparison>> gameComparison(@Path("offset") String offset,
                                                           @Path("count") String count,
                                                           @Query("from") String from,
                                                           @Query("to") String to);
 
-    @GET("/trainingSessions/{gameId}/{date}")
+    @GET("trainingSessions/{gameId}/{date}")
     public Call<ArrayList<TrainingSessionResponse>> trainingSession(@Path("gameId") String gameId,
                                                                     @Path("date") String date);
 
-    @GET("/gameRepetation/{gameId}/{sessionId}")
+    @GET("gameRepetation/{gameId}/{sessionId}")
     public Call<ArrayList<GameRepetation>> gameRepetation(@Path("gameId") String gameId,
                                                           @Path("sessionId") String sessionId);
 
