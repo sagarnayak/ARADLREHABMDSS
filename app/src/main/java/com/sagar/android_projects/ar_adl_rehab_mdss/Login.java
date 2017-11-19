@@ -70,6 +70,9 @@ public class Login extends AppCompatActivity {
                             if (response.body().getStatus().equals(LoginResponse.Response.SUCCESS.getCode())) {
                                 loginSuccessFull();
                                 gotoDashBoard();
+                            } else if (response.body().getStatus().equals(LoginResponse.Response.FAIL.getCode())) {
+                                Toast.makeText(Login.this, String.valueOf(response.body().getMessage()),
+                                        Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(Login.this, "Login failed", Toast.LENGTH_SHORT).show();
                             }

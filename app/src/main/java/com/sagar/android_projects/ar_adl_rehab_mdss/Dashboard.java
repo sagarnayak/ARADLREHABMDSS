@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.frags.GameListFragment;
@@ -98,7 +97,6 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
     }
 
     private void showLogout() {
-        Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show();
         final AlertDialog alertDialogLogout = new AlertDialog.Builder(Dashboard.this).create();
         alertDialogLogout.setTitle("Logout");
         alertDialogLogout.setMessage("Do you want to logout ?");
