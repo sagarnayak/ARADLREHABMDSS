@@ -93,14 +93,15 @@ public class GameListFragment extends Fragment {
                     public void onResponse(@NonNull Call<GameList> call, @NonNull Response<GameList> response) {
                         try {
                             if (response.isSuccessful()) {
-                                if (response.body().getData().size() < Const.PAGE_SIZE)
-                                    adapter.setNoMoreDataAvailable(true);
                                 if (gameLists == null) {
                                     gameLists = new ArrayList<>();
                                     linearLayoutManager = new LinearLayoutManager(getActivity());
                                     recyclerView.setLayoutManager(linearLayoutManager);
-                                    recyclerView.setAdapter(new AdapterGameList(gameLists));
+                                    adapter=new AdapterGameList(gameLists);
+                                    recyclerView.setAdapter(adapter);
                                 }
+                                if (response.body().getData().size() < Const.PAGE_SIZE)
+                                    adapter.setNoMoreDataAvailable(true);
                                 gameLists.addAll(response.body().getData());
                                 adapter.notifyDataSetChanged();
                             }

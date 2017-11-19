@@ -30,14 +30,14 @@ public interface ApiInterface {
     @POST("login.php")
     public Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @GET("userList/{offset}/{count}")
+    @GET("userlist.php/{offset}/{count}")
     public Call<UserListResponse> userList(@Path("offset") String offset, @Path("count") String count);
 
-    @GET("gameList/{offset}/{count}")
+    @GET("gamelist.php/{offset}/{count}")
     public Call<GameList> gameList(@Path("offset") String offset, @Path("count") String count);
 
-    @GET("dashboardData/{userId}")
-    public Call<DashboardData> dashboadData(@Path("userId") String userId);
+    @GET("dashboard.php")
+    public Call<DashboardData> dashboadData(@Query("user_id") String userId);
 
     @GET("dailyReport/{gameId}/{offset}/{count}")
     public Call<DailyReport> dailyReport(@Path("gameId") String gameId,

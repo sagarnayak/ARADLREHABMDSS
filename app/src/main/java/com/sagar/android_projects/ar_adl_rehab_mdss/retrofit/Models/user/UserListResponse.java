@@ -9,14 +9,36 @@ import java.util.ArrayList;
  */
 
 public class UserListResponse {
+    @SerializedName("status")
+    private String status;
+    @SerializedName("message")
+    private String message;
     @SerializedName("data")
     private ArrayList<User> data;
 
     public UserListResponse() {
     }
 
-    public UserListResponse(ArrayList<User> data) {
+    public UserListResponse(String status, String message, ArrayList<User> data) {
+        this.status = status;
+        this.message = message;
         this.data = data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public ArrayList<User> getData() {

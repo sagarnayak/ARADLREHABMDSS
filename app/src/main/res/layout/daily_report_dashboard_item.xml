@@ -27,7 +27,6 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp"
-                android:text="Heading"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <android.support.v7.widget.RecyclerView

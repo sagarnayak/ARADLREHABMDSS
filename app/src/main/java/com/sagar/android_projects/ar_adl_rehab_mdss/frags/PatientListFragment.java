@@ -10,13 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.R;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientList;
+import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.User;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.UserListResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
-import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 
 import java.util.ArrayList;
 
@@ -96,14 +97,16 @@ public class PatientListFragment extends Fragment {
                                            @NonNull Response<UserListResponse> response) {
                         try {
                             if (response.isSuccessful()) {
-                                if (response.body().getData().size() < Const.PAGE_SIZE)
-                                    adapter.setNoMoreDataAvailable(true);
                                 if (users == null) {
                                     users = new ArrayList<>();
                                     linearLayoutManager = new LinearLayoutManager(getActivity());
                                     recyclerView.setLayoutManager(linearLayoutManager);
-                                    recyclerView.setAdapter(new AdapterPatientList(users, (AdapterPatientList.AdapterPatientListCallback) getActivity()));
+                                    adapter = new AdapterPatientList(users,
+                                            (AdapterPatientList.AdapterPatientListCallback) getActivity());
+                                    recyclerView.setAdapter(adapter);
                                 }
+                                if (response.body().getData().size() < Const.PAGE_SIZE)
+                                    adapter.setNoMoreDataAvailable(true);
                                 users.addAll(response.body().getData());
                                 adapter.notifyDataSetChanged();
                             }
@@ -115,7 +118,8 @@ public class PatientListFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<UserListResponse> call, Throwable t) {
-
+                        Toast.makeText(getActivity(), "failed to get patient list",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }

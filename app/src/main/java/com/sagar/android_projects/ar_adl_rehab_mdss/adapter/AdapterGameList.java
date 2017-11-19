@@ -46,6 +46,8 @@ public class AdapterGameList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
+        if (gameListPojos.size() == 0)
+            return 0;
         if (isNoMoreDataAvailable)
             return gameListPojos.size();
         return gameListPojos.size() + 1;

@@ -1,6 +1,6 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 
-import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +52,8 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
+        if (users.size() == 0)
+            return 0;
         if (isNoMoreDataAvailable)
             return users.size();
         return users.size() + 1;
@@ -67,7 +69,7 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ConstraintLayout constraintLayoutContainer;
+        private CardView cardViewContainer;
         private TextView textViewName;
         private TextView textViewAgeAndGender;
         private TextView textViewCondition;
@@ -76,12 +78,13 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
         ViewHolder(View itemView) {
             super(itemView);
 
-            constraintLayoutContainer = itemView.findViewById(R.id.constraintlayout_patient_list_item_container);
+            cardViewContainer = itemView.findViewById(R.id.cardview_patient_list_item_container);
             textViewName = itemView.findViewById(R.id.textview_patient_name);
             textViewAgeAndGender = itemView.findViewById(R.id.textview_patient_age_and_gender);
+            textViewCondition = itemView.findViewById(R.id.textview_patient_condition);
             textViewMobileAndEmail = itemView.findViewById(R.id.textview_patient_mobile_and_email);
 
-            constraintLayoutContainer.setOnClickListener(new View.OnClickListener() {
+            cardViewContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adapterPatientListCallback.itemClickedInAdapterPatientList(users.get(getAdapterPosition()).getUserId());

@@ -22,7 +22,7 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.util.Keyword;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dashboard extends AppCompatActivity implements AdapterPatientList.AdapterPatientListCallback{
+public class Dashboard extends AppCompatActivity implements AdapterPatientList.AdapterPatientListCallback {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -102,19 +102,19 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
         alertDialogLogout.setMessage("Do you want to logout ?");
         alertDialogLogout.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                logout();
-                alertDialogLogout.dismiss();
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logout();
+                        alertDialogLogout.dismiss();
+                    }
+                });
         alertDialogLogout.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                alertDialogLogout.dismiss();
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialogLogout.dismiss();
+                    }
+                });
         alertDialogLogout.show();
     }
 
@@ -129,7 +129,8 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
 
     @Override
     public void itemClickedInAdapterPatientList(String userId) {
-
+        startActivity(new Intent(Dashboard.this, PatientDetailsTables.class)
+                .putExtra(PatientDetailsTables.USER_ID, userId));
     }
 
 }
