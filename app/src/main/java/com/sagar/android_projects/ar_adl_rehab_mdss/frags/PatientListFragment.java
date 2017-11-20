@@ -48,7 +48,6 @@ public class PatientListFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,12 +57,6 @@ public class PatientListFragment extends Fragment {
         int resId = R.anim.layout_anim_slide_from_bottom;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
         recyclerView.setLayoutAnimation(animation);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         getDataFromServer("0", String.valueOf(Const.PAGE_SIZE));
 
@@ -89,6 +82,13 @@ public class PatientListFragment extends Fragment {
                 }
             }
         });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void getDataFromServer(String offset, String pageSize) {

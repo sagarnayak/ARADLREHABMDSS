@@ -1,5 +1,6 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientDetailsList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
@@ -40,12 +42,21 @@ public class PatientDetailsTables extends AppCompatActivity {
     public static final String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
     public static final String USER_EMAIL = "USER_EMAIL";
 
+    private DashboardData dashboardData;
+    public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_details_tables);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        try {
+            dashboardData = new Gson().fromJson(getIntent().getStringExtra(DASHBOARD_DATA), DashboardData.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         recyclerView = findViewById(R.id.recyclerview_patient_detail);
         textViewName = findViewById(R.id.textview_name_patient_details);
@@ -84,7 +95,17 @@ public class PatientDetailsTables extends AppCompatActivity {
             }
         });
 
-        getDataFromWebService();
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoGraphView(dashboardData);
+            }
+        });
+
+        if (dashboardData == null)
+            getDataFromWebService();
+        else
+            setDataToAdapter(dashboardData);
     }
 
     private void finishActivity() {
@@ -142,12 +163,27 @@ public class PatientDetailsTables extends AppCompatActivity {
             finish();
             return;
         }
+        this.dashboardData = dashboardData;
         recyclerView.setAdapter(new AdapterPatientDetailsList(this, dashboardData));
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finishActivity();
+    }
+
+    private void gotoGraphView(DashboardData dashboardData) {
+        startActivity(new Intent(this, PatientDetailsGraph.class)
+                .putExtra(PatientDetailsGraph.DASHBOARD_DATA, new Gson().toJson(dashboardData))
+                .putExtra(PatientDetailsTables.USER_ID, getIntent().getStringExtra(USER_ID))
+                .putExtra(PatientDetailsTables.USER_NAME, getIntent().getStringExtra(USER_NAME))
+                .putExtra(PatientDetailsTables.USER_AGE, getIntent().getStringExtra(USER_AGE))
+                .putExtra(PatientDetailsTables.USER_GENDER, getIntent().getStringExtra(USER_GENDER))
+                .putExtra(PatientDetailsTables.USER_CONDITION, getIntent().getStringExtra(USER_CONDITION))
+                .putExtra(PatientDetailsTables.USER_MOBILE_NUMBER, getIntent().getStringExtra(USER_MOBILE_NUMBER))
+                .putExtra(PatientDetailsTables.USER_EMAIL, getIntent().getStringExtra(USER_EMAIL))
+        );
         finishActivity();
     }
 
