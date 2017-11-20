@@ -26,8 +26,8 @@ public class DetailReport extends AppCompatActivity {
                         "0",
                         "0",
                         "10",
-                        "21/8/2017",
-                        "21/10/2017")
+                        "",
+                        "")
                 .enqueue(new Callback<DailyReport>() {
                     @Override
                     public void onResponse(Call<DailyReport> call, Response<DailyReport> response) {

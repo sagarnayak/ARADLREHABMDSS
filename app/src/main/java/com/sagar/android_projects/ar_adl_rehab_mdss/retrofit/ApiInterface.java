@@ -39,9 +39,9 @@ public interface ApiInterface {
     @GET("dashboard.php")
     public Call<DashboardData> dashboadData(@Query("user_id") String userId);
 
-    @GET("dailyReport")
+    @GET("dailyreport.php")
     public Call<DailyReport> dailyReport(@Query("user_id")String userId,
-                                         @Query("gameId") String gameId,
+                                         @Query("game_Id") String gameId,
                                          @Query("offset") String offset,
                                          @Query("count") String count,
                                          @Query("from") String from,
