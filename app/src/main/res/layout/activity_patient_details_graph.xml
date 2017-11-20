@@ -73,17 +73,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ProgressBar
-        android:id="@+id/progressbar_patient_details_graph"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/yellow"
-        android:indeterminateTintMode="src_in"
-        app:layout_anchor="@id/recyclerview_patient_detail_graph"
-        app:layout_anchorGravity="top"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_patient_detail_graph"
         android:layout_width="match_parent"

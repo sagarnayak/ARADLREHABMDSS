@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientDetailsGraph;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 
 public class PatientDetailsGraph extends AppCompatActivity {
@@ -63,6 +65,9 @@ public class PatientDetailsGraph extends AppCompatActivity {
             setTitle(getIntent().getStringExtra(USER_NAME));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new AdapterPatientDetailsGraph(this, dashboardData));
     }
 
     @Override

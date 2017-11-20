@@ -139,6 +139,7 @@ public class PatientDetailsTables extends AppCompatActivity {
     }
 
     private void setDataToAdapter(DashboardData dashboardData) {
+        progressBar.setVisibility(View.GONE);
         if (dashboardData.getData().getDailyReports() == null ||
                 dashboardData.getData().getDailyReports().size() == 0) {
             Toast.makeText(this, "No Data Available", Toast.LENGTH_SHORT).show();
