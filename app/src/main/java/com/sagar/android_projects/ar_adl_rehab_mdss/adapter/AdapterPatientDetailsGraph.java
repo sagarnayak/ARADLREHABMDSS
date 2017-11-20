@@ -1,6 +1,7 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -80,18 +81,21 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             lineDataSets.add(dataSet);
         } else if (getItemViewType(position) == GAME_COMP) {
+            holder.textViewLavel.setText(String.valueOf("Game Comparison"));
             lineDataSets = new ArrayList<>();
             int gameIndexBeingOperated = 0;
             for (int i = 0; i < dashboardData.getData().getGameComparisons().get(0).getGameComparisonDataItems().size(); i++) {
                 dats = new ArrayList<>();
+                String lavel = "";
                 for (int j = 0; j < dashboardData.getData().getGameComparisons().size(); j++) {
 //                    dats.add(new Entry(Float.parseFloat(String.valueOf(j)), Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                    lavel = dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
                     dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
                             Float.parseFloat(String.valueOf(getRandomNumber()))));
                 }
                 gameIndexBeingOperated++;
-                dataSet = new LineDataSet(dats, "Label");
-                dataSet.setColor(ResourcesCompat.getColor(context.getResources(), R.color.red_700, null));
+                dataSet = new LineDataSet(dats, lavel);
+                dataSet.setColor(generateRandomColor());
                 dataSet.setValueTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorPrimary, null));
                 dataSet.setCircleColor(ResourcesCompat.getColor(context.getResources(), R.color.colorPrimary, null));
                 dataSet.setLineWidth(2f);
@@ -99,7 +103,20 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 lineDataSets.add(dataSet);
             }
         } else if (getItemViewType(position) == GAME_REP) {
-            return;
+            lineDataSets = new ArrayList<>();
+            int positionToOperate = position - (dashboardData.getData().getDailyReports().size() + 1 + 1);
+            holder.textViewLavel.setText(dashboardData.getData().getGameRepetations().get(positionToOperate).getLevel());
+            dats = new ArrayList<>();
+            for (int i = 0; i < dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().size(); i++) {
+                dats.add(new Entry(Float.parseFloat(String.valueOf(i)), Float.parseFloat(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().get(i).getScore())));
+            }
+            dataSet = new LineDataSet(dats, "Label");
+            dataSet.setColor(ResourcesCompat.getColor(context.getResources(), R.color.red_700, null));
+            dataSet.setValueTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorPrimary, null));
+            dataSet.setCircleColor(ResourcesCompat.getColor(context.getResources(), R.color.colorPrimary, null));
+            dataSet.setLineWidth(2f);
+            dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            lineDataSets.add(dataSet);
         }
 
         /*
@@ -119,8 +136,12 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
         XAxis xAxis = holder.lineChart.getXAxis();
         xAxis.setGranularity(1f);
-//        holder.lineChart.getLegend().setEnabled(false);
-        holder.lineChart.setViewPortOffsets(50, 0, 50, 50f);
+        if (getItemViewType(position) == GAME_COMP) {
+            holder.lineChart.getLegend().setEnabled(true);
+        } else {
+            holder.lineChart.getLegend().setEnabled(false);
+        }
+        holder.lineChart.setViewPortOffsets(100f, 50f, 100f, 100f);
         holder.lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -130,9 +151,10 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 } else if (getItemViewType(position) == TRAINING_FREQ) {
                     return String.valueOf(dashboardData.getData().getTrainingFrequencies().get(valueint).getDate());
                 } else if (getItemViewType(position) == GAME_COMP) {
-                    return "";
+                    return String.valueOf(dashboardData.getData().getGameComparisons().get(valueint).getDate());
                 } else if (getItemViewType(position) == GAME_REP) {
-                    return "";
+                    int positionToOperate = position - (dashboardData.getData().getDailyReports().size() + 1 + 1);
+                    return String.valueOf(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().get(valueint).getRep());
                 }
                 return null;
             }
@@ -176,5 +198,21 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
         int lowerBound = 1;
         int upperBound = 100;
         return r.nextInt(upperBound - lowerBound) + lowerBound;
+    }
+
+    public int generateRandomColor() {
+        Random mRandom = new Random();
+        // This is the base color which will be mixed with the generated one
+        final int baseColor = Color.WHITE;
+
+        final int baseRed = Color.red(baseColor);
+        final int baseGreen = Color.green(baseColor);
+        final int baseBlue = Color.blue(baseColor);
+
+        final int red = (baseRed + mRandom.nextInt(256)) / 2;
+        final int green = (baseGreen + mRandom.nextInt(256)) / 2;
+        final int blue = (baseBlue + mRandom.nextInt(256)) / 2;
+
+        return Color.rgb(red, green, blue);
     }
 }

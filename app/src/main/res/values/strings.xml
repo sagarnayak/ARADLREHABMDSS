@@ -8,4 +8,5 @@
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_activity_patient_details_tables">PatientDetailsTables</string>
     <string name="title_activity_patient_details_graph">PatientDetailsGraph</string>
+    <string name="title_activity_detail_report">DetailReport</string>
 </resources>

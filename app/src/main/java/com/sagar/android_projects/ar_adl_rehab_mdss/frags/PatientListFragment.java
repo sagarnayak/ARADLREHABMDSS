@@ -20,6 +20,7 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.User;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.UserListResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import java.util.ArrayList;
 
@@ -92,6 +93,10 @@ public class PatientListFragment extends Fragment {
     }
 
     private void getDataFromServer(String offset, String pageSize) {
+        if (!NetworkUtil.isConnected(getActivity())) {
+            Toast.makeText(getActivity(), "Please connect to internet", Toast.LENGTH_SHORT).show();
+            return;
+        }
         isLoading = true;
 
         ((AppSingleton) getActivity().getApplicationContext()).getApiInterface()

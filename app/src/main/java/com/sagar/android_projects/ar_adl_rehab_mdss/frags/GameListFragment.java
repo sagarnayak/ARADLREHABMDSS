@@ -10,13 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.R;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterGameList;
+import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.Game;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.GameList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
-import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import java.util.ArrayList;
 
@@ -85,6 +87,10 @@ public class GameListFragment extends Fragment {
     }
 
     private void getDataFromServer(String offset, String pageSize) {
+        if (!NetworkUtil.isConnected(getActivity())) {
+            Toast.makeText(getActivity(), "Please connect to internet", Toast.LENGTH_SHORT).show();
+            return;
+        }
         isLoading = true;
         ((AppSingleton) getActivity().getApplicationContext()).getApiInterface()
                 .gameList(offset, pageSize)
@@ -97,7 +103,7 @@ public class GameListFragment extends Fragment {
                                     gameLists = new ArrayList<>();
                                     linearLayoutManager = new LinearLayoutManager(getActivity());
                                     recyclerView.setLayoutManager(linearLayoutManager);
-                                    adapter=new AdapterGameList(gameLists);
+                                    adapter = new AdapterGameList(gameLists);
                                     recyclerView.setAdapter(adapter);
                                 }
                                 if (response.body().getData().size() < Const.PAGE_SIZE)

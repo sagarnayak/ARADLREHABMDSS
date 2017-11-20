@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientDetailsList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -113,6 +114,10 @@ public class PatientDetailsTables extends AppCompatActivity {
     }
 
     private void getDataFromWebService() {
+        if (!NetworkUtil.isConnected(PatientDetailsTables.this)) {
+            Toast.makeText(PatientDetailsTables.this, "Please connect to internet", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ((AppSingleton) getApplicationContext()).getApiInterface()
                 .dashboadData(getIntent().getStringExtra(USER_ID))
                 .enqueue(new Callback<DashboardData>() {
