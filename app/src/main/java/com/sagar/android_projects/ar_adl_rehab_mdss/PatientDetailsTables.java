@@ -1,10 +1,15 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +30,15 @@ public class PatientDetailsTables extends AppCompatActivity {
     private TextView textViewCondition;
     private TextView textViewMobileAndEmail;
     private ProgressBar progressBar;
+    private FloatingActionButton floatingActionButton;
 
     public static final String USER_ID = "USER_ID";
+    public static final String USER_NAME = "USER_NAME";
+    public static final String USER_AGE = "USER_AGE";
+    public static final String USER_GENDER = "USER_GENDER";
+    public static final String USER_CONDITION = "USER_CONDITION";
+    public static final String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
+    public static final String USER_EMAIL = "USER_EMAIL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +53,45 @@ public class PatientDetailsTables extends AppCompatActivity {
         textViewCondition = findViewById(R.id.textview_condition_patient_details);
         textViewMobileAndEmail = findViewById(R.id.textview_mobile_and_email_patient_details);
         progressBar = findViewById(R.id.progressbar_patient_details);
+        floatingActionButton = findViewById(R.id.floating_action_button_patient_details_tables);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int resId = R.anim.layout_anim_slide_from_bottom;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(PatientDetailsTables.this, resId);
+        recyclerView.setLayoutAnimation(animation);
 
+        textViewName.setText(getIntent().getStringExtra(USER_NAME));
+        textviewAgeAndGender.setText(String.valueOf(getIntent().getStringExtra(USER_AGE) + "," +
+                getIntent().getStringExtra(USER_GENDER)));
+        textViewCondition.setText(getIntent().getStringExtra(USER_CONDITION));
+        textViewMobileAndEmail.setText(String.valueOf(getIntent().getStringExtra(USER_MOBILE_NUMBER) + "," +
+                getIntent().getStringExtra(USER_EMAIL)));
+
+        if (getSupportActionBar() != null) {
+            setTitle(getIntent().getStringExtra(USER_NAME));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && floatingActionButton.getVisibility() == View.VISIBLE) {
+                    floatingActionButton.hide();
+                } else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
+                    floatingActionButton.show();
+                }
+            }
+        });
+
+        getDataFromWebService();
+    }
+
+    private void finishActivity() {
+        finish();
+    }
+
+    private void getDataFromWebService() {
         ((AppSingleton) getApplicationContext()).getApiInterface()
                 .dashboadData(getIntent().getStringExtra(USER_ID))
                 .enqueue(new Callback<DashboardData>() {
@@ -56,10 +104,12 @@ public class PatientDetailsTables extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             finishActivity();
                         }
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<DashboardData> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(PatientDetailsTables.this, "failed to get data",
                                 Toast.LENGTH_SHORT).show();
                         finishActivity();
@@ -67,28 +117,46 @@ public class PatientDetailsTables extends AppCompatActivity {
                 });
     }
 
-    private void finishActivity() {
-        finish();
-    }
-
     private void setDataToAdapter(DashboardData dashboardData) {
-        if (dashboardData.getData().getDailyReports() == null) {
+        if (dashboardData.getData().getDailyReports() == null ||
+                dashboardData.getData().getDailyReports().size() == 0) {
+            Toast.makeText(this, "No Data Available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-        if (dashboardData.getData().getTrainingFrequencies() == null) {
+        if (dashboardData.getData().getTrainingFrequencies() == null ||
+                dashboardData.getData().getTrainingFrequencies().size() == 0) {
+            Toast.makeText(this, "No Data Available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-        if (dashboardData.getData().getGameComparisons() == null) {
+        if (dashboardData.getData().getGameComparisons() == null ||
+                dashboardData.getData().getGameComparisons().size() == 0) {
+            Toast.makeText(this, "No Data Available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-        if (dashboardData.getData().getGameRepetations() == null) {
+        if (dashboardData.getData().getGameRepetations() == null ||
+                dashboardData.getData().getGameRepetations().size() == 0) {
+            Toast.makeText(this, "No Data Available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
         recyclerView.setAdapter(new AdapterPatientDetailsList(this, dashboardData));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishActivity();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finishActivity();
+            return true;
+        }
+        return false;
+    }
 }

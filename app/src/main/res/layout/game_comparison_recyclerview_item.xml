@@ -22,6 +22,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/textview_date_game_comparison_recyclerview_item"/>
 
 </android.support.constraint.ConstraintLayout>

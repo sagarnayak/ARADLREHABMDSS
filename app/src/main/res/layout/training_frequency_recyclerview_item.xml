@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-        android:id="@+id/textview_score_training_freq_recyclerview_item"
+        android:id="@+id/textview_reps_training_freq_recyclerview_item"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

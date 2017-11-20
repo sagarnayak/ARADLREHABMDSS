@@ -87,7 +87,13 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
             cardViewContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    adapterPatientListCallback.itemClickedInAdapterPatientList(users.get(getAdapterPosition()).getUserId());
+                    adapterPatientListCallback.itemClickedInAdapterPatientList(users.get(getAdapterPosition()).getUserId(),
+                            users.get(getAdapterPosition()).getName(),
+                            users.get(getAdapterPosition()).getAge(),
+                            users.get(getAdapterPosition()).getGender(),
+                            users.get(getAdapterPosition()).getCondition(),
+                            users.get(getAdapterPosition()).getPhone(),
+                            users.get(getAdapterPosition()).getEmail());
                 }
             });
         }
@@ -105,6 +111,7 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface AdapterPatientListCallback {
-        void itemClickedInAdapterPatientList(String userId);
+        void itemClickedInAdapterPatientList(String userId, String userName, String age, String gender,
+                                             String condition, String mobileNumber, String email);
     }
 }

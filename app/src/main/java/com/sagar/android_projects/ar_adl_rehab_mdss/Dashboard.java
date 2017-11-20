@@ -128,9 +128,18 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
     }
 
     @Override
-    public void itemClickedInAdapterPatientList(String userId) {
+    public void itemClickedInAdapterPatientList(String userId, String userName, String age,
+                                                String gender, String condition,
+                                                String mobileNumber, String email) {
         startActivity(new Intent(Dashboard.this, PatientDetailsTables.class)
-                .putExtra(PatientDetailsTables.USER_ID, userId));
+                .putExtra(PatientDetailsTables.USER_ID, userId)
+                .putExtra(PatientDetailsTables.USER_NAME, userName)
+                .putExtra(PatientDetailsTables.USER_AGE, age)
+                .putExtra(PatientDetailsTables.USER_GENDER, gender)
+                .putExtra(PatientDetailsTables.USER_CONDITION, condition)
+                .putExtra(PatientDetailsTables.USER_MOBILE_NUMBER, mobileNumber)
+                .putExtra(PatientDetailsTables.USER_EMAIL, email)
+        );
     }
 
 }

@@ -80,6 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:indeterminateTint="@color/yellow"
+        android:indeterminateTintMode="src_in"
         app:layout_anchor="@id/recyclerview_patient_detail"
         app:layout_anchorGravity="top"/>
 
@@ -88,5 +90,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_action_button_patient_details_tables"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/graph"
+        app:fabSize="normal"/>
 
 </android.support.design.widget.CoordinatorLayout>

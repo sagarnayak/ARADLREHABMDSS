@@ -3,7 +3,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,16 +67,53 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
                     .setLayoutManager(new LinearLayoutManager(context));
             ((ViewHolderDailyReport) holder)
                     .recyclerView
+                    .setNestedScrollingEnabled(false);
+            ((ViewHolderDailyReport) holder)
+                    .recyclerView
                     .setAdapter(new AdapterDailyReport(dashboardData.getData().getDailyReports().get(position).getData()));
         }
         if (holder instanceof ViewHolderTrainingFreq) {
-            Log.i("dfbdfbd", "onBindViewHolder: ");
+            ((ViewHolderTrainingFreq) holder)
+                    .textViewHeadding
+                    .setText(String.valueOf("Training Frequency"));
+            ((ViewHolderTrainingFreq) holder)
+                    .recyclerView
+                    .setLayoutManager(new LinearLayoutManager(context));
+            ((ViewHolderTrainingFreq) holder)
+                    .recyclerView
+                    .setNestedScrollingEnabled(false);
+            ((ViewHolderTrainingFreq) holder)
+                    .recyclerView
+                    .setAdapter(new AdapterTrainingFrequency(dashboardData.getData().getTrainingFrequencies()));
         }
         if (holder instanceof ViewHolderGameComparison) {
-            Log.i("dfbdfbd", "onBindViewHolder: ");
+            ((ViewHolderGameComparison) holder)
+                    .textViewHeading
+                    .setText(String.valueOf("Game Comparison"));
+            ((ViewHolderGameComparison) holder)
+                    .recyclerView
+                    .setLayoutManager(new LinearLayoutManager(context));
+            ((ViewHolderGameComparison) holder)
+                    .recyclerView
+                    .setNestedScrollingEnabled(false);
+            ((ViewHolderGameComparison) holder)
+                    .recyclerView
+                    .setAdapter(new AdapterGameComparison(dashboardData.getData().getGameComparisons(), context));
         }
         if (holder instanceof ViewHolderGameRepetition) {
-            Log.i("dfbdfbd", "onBindViewHolder: ");
+            int positionToOperate = position - (dashboardData.getData().getDailyReports().size() + 1 + 1);
+            ((ViewHolderGameRepetition) holder)
+                    .textViewHeading
+                    .setText(dashboardData.getData().getGameRepetations().get(positionToOperate).getLevel());
+            ((ViewHolderGameRepetition) holder)
+                    .recyclerView
+                    .setLayoutManager(new LinearLayoutManager(context));
+            ((ViewHolderGameRepetition) holder)
+                    .recyclerView
+                    .setNestedScrollingEnabled(false);
+            ((ViewHolderGameRepetition) holder)
+                    .recyclerView
+                    .setAdapter(new AdapterGameRepetation(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems()));
         }
     }
 
@@ -97,7 +133,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeadding;
         private RecyclerView recyclerView;
 
-        public ViewHolderDailyReport(View itemView) {
+        ViewHolderDailyReport(View itemView) {
             super(itemView);
 
             textViewHeadding = itemView.findViewById(R.id.textview_heading_daily_report_dashboard_item);
@@ -110,7 +146,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeadding;
         private RecyclerView recyclerView;
 
-        public ViewHolderTrainingFreq(View itemView) {
+        ViewHolderTrainingFreq(View itemView) {
             super(itemView);
 
             textViewHeadding = itemView.findViewById(R.id.textview_heading_training_freq_dashboard_item);
@@ -123,7 +159,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeading;
         private RecyclerView recyclerView;
 
-        public ViewHolderGameComparison(View itemView) {
+        ViewHolderGameComparison(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textview_heading_game_comparison_dashboard_item);
@@ -136,7 +172,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeading;
         private RecyclerView recyclerView;
 
-        public ViewHolderGameRepetition(View itemView) {
+        ViewHolderGameRepetition(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textview_heading_game_repetation_dashboard_item);
