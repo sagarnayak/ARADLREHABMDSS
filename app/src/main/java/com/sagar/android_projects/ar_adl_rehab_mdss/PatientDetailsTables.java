@@ -218,7 +218,7 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
 
     @Override
     public void dailyReportClicked() {
-        startActivity(new Intent(PatientDetailsTables.this, DetailReport.class));
+        startActivity(new Intent(PatientDetailsTables.this, DailyDetailReport.class));
     }
 
     @Override

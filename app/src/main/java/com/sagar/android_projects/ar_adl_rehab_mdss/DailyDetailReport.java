@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailReport extends AppCompatActivity {
+public class DailyDetailReport extends AppCompatActivity {
 
     public static final String TITLE = "TITLE";
 
@@ -87,7 +87,7 @@ public class DetailReport extends AppCompatActivity {
                         calendarTo.set(Calendar.MONTH, monthOfYearEnd);
                         calendarTo.set(Calendar.DAY_OF_MONTH, dayOfMonthEnd);
                         if (calendarFrom.getTimeInMillis() > calendarTo.getTimeInMillis()) {
-                            Toast.makeText(DetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DailyDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Log.i("MDSS_OkHttpLog", "onDateSet: " + year + ":" + monthOfYear + ":" + dayOfMonth + ":" + yearEnd + ":" + monthOfYearEnd + ":" + dayOfMonthEnd);
