@@ -1,11 +1,18 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReport;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
+
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +46,45 @@ public class DetailReport extends AppCompatActivity {
 
                     }
                 });
+
+        showDatePickerDialog();
+    }
+
+    private void showDatePickerDialog() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+                        Calendar calendarFrom = Calendar.getInstance();
+                        calendarFrom.set(Calendar.YEAR, year);
+                        calendarFrom.set(Calendar.MONTH, monthOfYear);
+                        calendarFrom.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        Calendar calendarTo = Calendar.getInstance();
+                        calendarTo.set(Calendar.YEAR, yearEnd);
+                        calendarTo.set(Calendar.MONTH, monthOfYearEnd);
+                        calendarTo.set(Calendar.DAY_OF_MONTH, dayOfMonthEnd);
+                        if (calendarFrom.getTimeInMillis() > calendarTo.getTimeInMillis()) {
+                            Toast.makeText(DetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Log.i("MDSS_OkHttpLog", "onDateSet: " + year + ":" + monthOfYear + ":" + dayOfMonth + ":" + yearEnd + ":" + monthOfYearEnd + ":" + dayOfMonthEnd);
+                        }
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null));
+        dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Log.i("MDSS_OkHttpLog", "cancelled");
+            }
+        });
+        dpd.setCancelable(false);
+        dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
 }

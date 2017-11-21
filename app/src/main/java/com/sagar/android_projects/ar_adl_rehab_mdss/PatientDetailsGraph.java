@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -95,8 +96,21 @@ public class PatientDetailsGraph extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             gotoDashboardTables();
             return true;
+        } else if (item.getItemId() == R.id.action_edit) {
+            editUser();
+            return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_patient_details, menu);
+        return true;
+    }
+
+    private void editUser() {
+
     }
 
     @Override

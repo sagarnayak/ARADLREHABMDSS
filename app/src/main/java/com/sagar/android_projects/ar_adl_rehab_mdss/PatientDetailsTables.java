@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -25,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PatientDetailsTables extends AppCompatActivity {
+public class PatientDetailsTables extends AppCompatActivity implements AdapterPatientDetailsList.CallBackPatientDetails {
 
     private RecyclerView recyclerView;
     private TextView textViewName;
@@ -170,7 +171,7 @@ public class PatientDetailsTables extends AppCompatActivity {
             return;
         }
         this.dashboardData = dashboardData;
-        recyclerView.setAdapter(new AdapterPatientDetailsList(this, dashboardData));
+        recyclerView.setAdapter(new AdapterPatientDetailsList(this, dashboardData, this));
     }
 
     @Override
@@ -198,7 +199,39 @@ public class PatientDetailsTables extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finishActivity();
             return true;
+        } else if (item.getItemId() == R.id.action_edit) {
+            editUser();
+            return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_patient_details, menu);
+        return true;
+    }
+
+    private void editUser() {
+
+    }
+
+    @Override
+    public void dailyReportClicked() {
+        startActivity(new Intent(PatientDetailsTables.this, DetailReport.class));
+    }
+
+    @Override
+    public void trainingFrequencyClicked() {
+
+    }
+
+    @Override
+    public void gameComparisonClicked() {
+
+    }
+
+    public void gameRepetitionClicked() {
+
     }
 }

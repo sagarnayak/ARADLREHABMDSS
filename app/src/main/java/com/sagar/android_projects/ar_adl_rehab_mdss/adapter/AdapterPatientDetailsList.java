@@ -1,6 +1,7 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,15 +19,17 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
     private Context context;
     private DashboardData dashboardData;
+    private CallBackPatientDetails callBackPatientDetails;
 
     private static final int DAILY_REPORT = 123;
     private static final int TRAINING_FREQ = 124;
     private static final int GAME_COMP = 125;
     private static final int GAME_REP = 126;
 
-    public AdapterPatientDetailsList(Context context, DashboardData dashboardData) {
+    public AdapterPatientDetailsList(Context context, DashboardData dashboardData, CallBackPatientDetails callBackPatientDetails) {
         this.context = context;
         this.dashboardData = dashboardData;
+        this.callBackPatientDetails = callBackPatientDetails;
     }
 
     @Override
@@ -132,12 +135,21 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
         private TextView textViewHeadding;
         private RecyclerView recyclerView;
+        private AppCompatImageView appCompatImageViewMore;
 
         ViewHolderDailyReport(View itemView) {
             super(itemView);
 
             textViewHeadding = itemView.findViewById(R.id.textview_heading_daily_report_dashboard_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_daily_report_dashboard_item);
+            appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_daily_report_more);
+
+            appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackPatientDetails.dailyReportClicked();
+                }
+            });
         }
     }
 
@@ -178,5 +190,15 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
             textViewHeading = itemView.findViewById(R.id.textview_heading_game_repetation_dashboard_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_game_repetation_dashboard_item);
         }
+    }
+
+    public interface CallBackPatientDetails {
+        void dailyReportClicked();
+
+        void trainingFrequencyClicked();
+
+        void gameComparisonClicked();
+
+        void gameRepetitionClicked();
     }
 }
