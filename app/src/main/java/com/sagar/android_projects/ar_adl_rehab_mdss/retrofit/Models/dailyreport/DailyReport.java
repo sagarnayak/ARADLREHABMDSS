@@ -10,14 +10,17 @@ import java.util.ArrayList;
 public class DailyReport {
     @SerializedName("name")
     private String name;
+    @SerializedName("game_id")
+    private String gameId;
     @SerializedName("data")
     private ArrayList<DailyReportDateAndScore> data;
 
     public DailyReport() {
     }
 
-    public DailyReport(String name, ArrayList<DailyReportDateAndScore> data) {
+    public DailyReport(String name, String gameId, ArrayList<DailyReportDateAndScore> data) {
         this.name = name;
+        this.gameId = gameId;
         this.data = data;
     }
 
@@ -27,6 +30,14 @@ public class DailyReport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public ArrayList<DailyReportDateAndScore> getData() {

@@ -120,7 +120,7 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
             return;
         }
         ((AppSingleton) getApplicationContext()).getApiInterface()
-                .dashboadData(getIntent().getStringExtra(USER_ID))
+                .dashboardData(getIntent().getStringExtra(USER_ID))
                 .enqueue(new Callback<DashboardData>() {
                     @Override
                     public void onResponse(Call<DashboardData> call, Response<DashboardData> response) {
@@ -217,8 +217,11 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
     }
 
     @Override
-    public void dailyReportClicked() {
-        startActivity(new Intent(PatientDetailsTables.this, DailyDetailReport.class));
+    public void dailyReportClicked(String title, String gameId) {
+        startActivity(new Intent(PatientDetailsTables.this, DailyDetailReport.class)
+                .putExtra(DailyDetailReport.TITLE, title)
+                .putExtra(DailyDetailReport.USER_ID, getIntent().getStringExtra(USER_ID))
+                .putExtra(DailyDetailReport.GAME_ID, gameId == null ? "1" : gameId));
     }
 
     @Override

@@ -74,6 +74,8 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
             ((ViewHolderDailyReport) holder)
                     .recyclerView
                     .setAdapter(new AdapterDailyReport(dashboardData.getData().getDailyReports().get(position).getData()));
+            ((ViewHolderDailyReport) holder)
+                    .gameId = dashboardData.getData().getDailyReports().get(position).getGameId();
         }
         if (holder instanceof ViewHolderTrainingFreq) {
             ((ViewHolderTrainingFreq) holder)
@@ -136,6 +138,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeadding;
         private RecyclerView recyclerView;
         private AppCompatImageView appCompatImageViewMore;
+        private String gameId;
 
         ViewHolderDailyReport(View itemView) {
             super(itemView);
@@ -147,7 +150,8 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
             appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callBackPatientDetails.dailyReportClicked();
+                    callBackPatientDetails.dailyReportClicked(textViewHeadding.getText().toString().trim(),
+                            gameId);
                 }
             });
         }
@@ -157,12 +161,21 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
         private TextView textViewHeadding;
         private RecyclerView recyclerView;
+        private AppCompatImageView appCompatImageViewMore;
 
         ViewHolderTrainingFreq(View itemView) {
             super(itemView);
 
             textViewHeadding = itemView.findViewById(R.id.textview_heading_training_freq_dashboard_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_training_freq_dashboard_item);
+            appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_training_freq_more);
+
+            appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackPatientDetails.trainingFrequencyClicked();
+                }
+            });
         }
     }
 
@@ -170,12 +183,21 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
         private TextView textViewHeading;
         private RecyclerView recyclerView;
+        private AppCompatImageView appCompatImageViewMore;
 
         ViewHolderGameComparison(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textview_heading_game_comparison_dashboard_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_game_comparison_dashboard_item);
+            appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_game_comparison_more);
+
+            appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackPatientDetails.gameComparisonClicked();
+                }
+            });
         }
     }
 
@@ -183,17 +205,26 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
         private TextView textViewHeading;
         private RecyclerView recyclerView;
+        private AppCompatImageView appCompatImageViewMore;
 
         ViewHolderGameRepetition(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textview_heading_game_repetation_dashboard_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_game_repetation_dashboard_item);
+            appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_game_repetition_more);
+
+            appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackPatientDetails.gameRepetitionClicked();
+                }
+            });
         }
     }
 
     public interface CallBackPatientDetails {
-        void dailyReportClicked();
+        void dailyReportClicked(String title, String gameId);
 
         void trainingFrequencyClicked();
 
