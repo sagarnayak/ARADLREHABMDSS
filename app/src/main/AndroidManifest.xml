@@ -38,11 +38,21 @@
             android:name=".PatientDetailsGraph"
             android:label="@string/title_activity_patient_details_graph"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".DailyDetailReport"
             android:label="@string/title_activity_detail_report"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".TrainingFrequencyDetailReport"
+            android:label="@string/title_activity_training_frequency_detail_report"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".GameComparisonDetailReport"
+            android:label="@string/title_activity_game_comparison_detail_report"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

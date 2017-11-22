@@ -9,4 +9,7 @@
     <string name="title_activity_patient_details_tables">PatientDetailsTables</string>
     <string name="title_activity_patient_details_graph">PatientDetailsGraph</string>
     <string name="title_activity_detail_report">DetailReport</string>
+    <string name="title_activity_training_frequency_detail_report">TrainingFrequencyDetailReport
+    </string>
+    <string name="title_activity_game_comparison_detail_report">GameComparisonDetailReport</string>
 </resources>

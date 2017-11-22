@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.frags.GameListFragment;
@@ -142,4 +143,35 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
         );
     }
 
+    @Override
+    public void onBackPressed() {
+        exitOnDoubleBackPress();
+    }
+
+    private static boolean isBackPressed = false;
+
+    private void exitOnDoubleBackPress() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isBackPressed)
+                    finish();
+                else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(Dashboard.this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    isBackPressed = true;
+                    try {
+                        Thread.sleep(2000);
+                        isBackPressed = false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
 }

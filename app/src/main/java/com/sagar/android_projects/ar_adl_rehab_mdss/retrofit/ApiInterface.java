@@ -3,11 +3,11 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.GameList;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparison;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparisonExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.GameRepetation;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginRequest;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginResponse;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFrequencyList;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFreqExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingresponse.TrainingSessionResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.UserListResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.usergame.UserGame;
@@ -47,17 +47,19 @@ public interface ApiInterface {
                                                  @Query("from") String from,
                                                  @Query("to") String to);
 
-    @GET("trainingFrequency/{offset}/{count}")
-    public Call<TrainingFrequencyList> trainingFrequency(@Path("offset") String offset,
-                                                         @Path("count") String count,
-                                                         @Query("from") String from,
-                                                         @Query("to") String to);
+    @GET("training-frequency.php")
+    public Call<TrainingFreqExpanded> trainingFrequency(@Query("user_id") String userId,
+                                                        @Query("offset") String offset,
+                                                        @Query("count") String count,
+                                                        @Query("from") String from,
+                                                        @Query("to") String to);
 
-    @GET("agmeComparison/{offset}/{count}")
-    public Call<ArrayList<GameComparison>> gameComparison(@Path("offset") String offset,
-                                                          @Path("count") String count,
-                                                          @Query("from") String from,
-                                                          @Query("to") String to);
+    @GET("game-comparison.php")
+    public Call<GameComparisonExpanded> gameComparison(@Query("user_id") String userId,
+                                                       @Query("offset") String offset,
+                                                       @Query("count") String count,
+                                                       @Query("from") String from,
+                                                       @Query("to") String to);
 
     @GET("trainingSessions/{gameId}/{date}")
     public Call<ArrayList<TrainingSessionResponse>> trainingSession(@Path("gameId") String gameId,

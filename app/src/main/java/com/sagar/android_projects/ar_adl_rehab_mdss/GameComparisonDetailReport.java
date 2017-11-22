@@ -16,11 +16,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
-import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterDailyReport;
+import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterGameComparison;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.DateUtil;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportDateAndScore;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportExpanded;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparison;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparisonExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
 import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
-public class DailyDetailReport extends AppCompatActivity {
+public class GameComparisonDetailReport extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -41,34 +41,41 @@ public class DailyDetailReport extends AppCompatActivity {
 
     public static final String TITLE = "TITLE";
     public static final String USER_ID = "USER_ID";
-    public static final String GAME_ID = "GAME_ID";
 
     private LinearLayoutManager linearLayoutManager;
-    private AdapterDailyReport adapterDailyReport;
-    private ArrayList<DailyReportDateAndScore> data;
+    private AdapterGameComparison adapterGameComparison;
+    private ArrayList<GameComparison> data;
 
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private String fromDate = "";
     private String toDate = "";
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_report);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_game_comparison_detail_report);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            setTitle(getIntent().getStringExtra(TITLE));
+            toolbar.post(new Runnable() {
+                @Override
+                public void run() {
+                    toolbar.setTitle(getIntent().getStringExtra(TITLE));
+                }
+            });
         }
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_daily_report_expanded);
-        recyclerView = findViewById(R.id.recyclerview_daily_report_expanded);
-        appCompatImageViewNoMoreData = findViewById(R.id.appcompatimageview_no_more_Data_daily_report_expanded);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_game_comparison_detail_expanded);
+        recyclerView = findViewById(R.id.recyclerview_game_comparison_detail_expanded);
+        appCompatImageViewNoMoreData = findViewById(R.id.appcompatimageview_no_more_Data_game_comparison_detail_expanded);
 
-        getDataFromServer(getIntent().getStringExtra(USER_ID), getIntent().getStringExtra(GAME_ID),
+        getDataFromServer(getIntent().getStringExtra(USER_ID),
                 "0", String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -89,7 +96,7 @@ public class DailyDetailReport extends AppCompatActivity {
                             && firstVisibleItemPosition >= 0
                             && totalItemCount >= PAGE_SIZE) {
                         getDataFromServer(getIntent().getStringExtra(USER_ID),
-                                getIntent().getStringExtra(GAME_ID), String.valueOf(data.size()),
+                                String.valueOf(data.size()),
                                 String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
                     }
                 }
@@ -103,8 +110,7 @@ public class DailyDetailReport extends AppCompatActivity {
                 fromDate = "";
                 toDate = "";
                 getDataFromServer(getIntent().getStringExtra(USER_ID),
-                        getIntent().getStringExtra(GAME_ID), "0",
-                        String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
+                        "0", String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
             }
         });
     }
@@ -151,7 +157,7 @@ public class DailyDetailReport extends AppCompatActivity {
                         calendarTo.set(Calendar.MONTH, monthOfYearEnd);
                         calendarTo.set(Calendar.DAY_OF_MONTH, dayOfMonthEnd);
                         if (calendarFrom.getTimeInMillis() > calendarTo.getTimeInMillis()) {
-                            Toast.makeText(DailyDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GameComparisonDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
                         } else {
                             swipeRefreshLayout.setRefreshing(true);
                             fromDate = DateUtil.formarDateForFilter(dayOfMonth, monthOfYear, year);
@@ -159,7 +165,6 @@ public class DailyDetailReport extends AppCompatActivity {
                             linearLayoutManager = null;
                             getDataFromServer(
                                     getIntent().getStringExtra(USER_ID),
-                                    getIntent().getStringExtra(GAME_ID),
                                     String.valueOf(0),
                                     String.valueOf(Const.PAGE_SIZE),
                                     fromDate,
@@ -182,53 +187,54 @@ public class DailyDetailReport extends AppCompatActivity {
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
-    private void getDataFromServer(String userId, String gameId, String offset, String count, String from, String to) {
+    private void getDataFromServer(String userId, String offset, String count, String from, String to) {
         if (!NetworkUtil.isConnected(this)) {
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             return;
         }
+        from = "8/20/2016";
         isLoading = true;
         ((AppSingleton) getApplicationContext())
                 .getApiInterface()
-                .dailyReport(userId, gameId, offset, count, from, to)
-                .enqueue(new Callback<DailyReportExpanded>() {
+                .gameComparison(userId, offset, count, from, to)
+                .enqueue(new Callback<GameComparisonExpanded>() {
                     @Override
-                    public void onResponse(Call<DailyReportExpanded> call, Response<DailyReportExpanded> response) {
+                    public void onResponse(Call<GameComparisonExpanded> call, Response<GameComparisonExpanded> response) {
                         if (response.isSuccessful()) {
-                            DailyReportExpanded dailyReportExpanded = response.body();
-                            setDataToRecyclerview(dailyReportExpanded.getDailyReportDateAndScores().getDailyReportDateAndScores(),
-                                    dailyReportExpanded.getDailyReportDateAndScores().getDailyReportDateAndScores().size() < Const.PAGE_SIZE);
+                            GameComparisonExpanded gameComparisonExpanded = response.body();
+                            setDataToRecyclerview(gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons(),
+                                    gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().size() < Const.PAGE_SIZE);
                         } else {
-                            Toast.makeText(DailyDetailReport.this, "failed to get data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GameComparisonDetailReport.this, "failed to get data", Toast.LENGTH_SHORT).show();
                         }
                         swipeRefreshLayout.setRefreshing(false);
                         isLoading = false;
                     }
 
                     @Override
-                    public void onFailure(Call<DailyReportExpanded> call, Throwable t) {
+                    public void onFailure(Call<GameComparisonExpanded> call, Throwable t) {
                         isLoading = false;
                         swipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(DailyDetailReport.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GameComparisonDetailReport.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
     }
 
-    private void setDataToRecyclerview(ArrayList<DailyReportDateAndScore> dataToRecyclerview, boolean noMoreDataAvailable) {
+    private void setDataToRecyclerview(ArrayList<GameComparison> dataToRecyclerview, boolean noMoreDataAvailable) {
         checkIfLastPage(noMoreDataAvailable);
         if (linearLayoutManager == null) {
-            linearLayoutManager = new LinearLayoutManager(DailyDetailReport.this);
+            linearLayoutManager = new LinearLayoutManager(GameComparisonDetailReport.this);
             data = new ArrayList<>();
             data.addAll(dataToRecyclerview);
-            adapterDailyReport = new AdapterDailyReport(data);
-            adapterDailyReport.setNoMoreDataAvailable(noMoreDataAvailable);
+            adapterGameComparison = new AdapterGameComparison(data, GameComparisonDetailReport.this);
+            adapterGameComparison.setNoMoreDataAvailable(noMoreDataAvailable);
             recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(adapterDailyReport);
+            recyclerView.setAdapter(adapterGameComparison);
         } else {
             data.addAll(dataToRecyclerview);
-            adapterDailyReport.setNoMoreDataAvailable(noMoreDataAvailable);
-            adapterDailyReport.notifyDataSetChanged();
+            adapterGameComparison.setNoMoreDataAvailable(noMoreDataAvailable);
+            adapterGameComparison.notifyDataSetChanged();
         }
         showNoDataSignAsApplicable();
         showFilterRangeIfApplicable();
@@ -241,7 +247,12 @@ public class DailyDetailReport extends AppCompatActivity {
             }
         } else {
             if (getSupportActionBar() != null) {
-                setTitle(getIntent().getStringExtra(TITLE));
+                toolbar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        toolbar.setTitle(getIntent().getStringExtra(TITLE));
+                    }
+                });
             }
         }
     }

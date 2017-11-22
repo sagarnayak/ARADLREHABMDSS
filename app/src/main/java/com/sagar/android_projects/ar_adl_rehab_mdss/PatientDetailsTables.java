@@ -226,12 +226,16 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
 
     @Override
     public void trainingFrequencyClicked() {
-
+        startActivity(new Intent(PatientDetailsTables.this, TrainingFrequencyDetailReport.class)
+                .putExtra(TrainingFrequencyDetailReport.TITLE, String.valueOf("sagar"))
+                .putExtra(TrainingFrequencyDetailReport.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
     @Override
     public void gameComparisonClicked() {
-
+        startActivity(new Intent(PatientDetailsTables.this, GameComparisonDetailReport.class)
+                .putExtra(GameComparisonDetailReport.TITLE, String.valueOf("Game Comparison"))
+                .putExtra(GameComparisonDetailReport.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
     public void gameRepetitionClicked() {

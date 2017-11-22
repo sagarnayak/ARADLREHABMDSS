@@ -16,11 +16,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
-import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterDailyReport;
+import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterTrainingFrequency;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.DateUtil;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportDateAndScore;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportExpanded;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFreqExpanded;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFrequency;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
 import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
-public class DailyDetailReport extends AppCompatActivity {
+public class TrainingFrequencyDetailReport extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -41,11 +41,10 @@ public class DailyDetailReport extends AppCompatActivity {
 
     public static final String TITLE = "TITLE";
     public static final String USER_ID = "USER_ID";
-    public static final String GAME_ID = "GAME_ID";
 
     private LinearLayoutManager linearLayoutManager;
-    private AdapterDailyReport adapterDailyReport;
-    private ArrayList<DailyReportDateAndScore> data;
+    private AdapterTrainingFrequency adapterTrainingFrequency;
+    private ArrayList<TrainingFrequency> data;
 
     private boolean isLoading = false;
     private boolean isLastPage = false;
@@ -55,7 +54,7 @@ public class DailyDetailReport extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_report);
+        setContentView(R.layout.activity_training_frequency_detail_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,11 +63,11 @@ public class DailyDetailReport extends AppCompatActivity {
             setTitle(getIntent().getStringExtra(TITLE));
         }
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_daily_report_expanded);
-        recyclerView = findViewById(R.id.recyclerview_daily_report_expanded);
-        appCompatImageViewNoMoreData = findViewById(R.id.appcompatimageview_no_more_Data_daily_report_expanded);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_training_freq_detail_expanded);
+        recyclerView = findViewById(R.id.recyclerview_training_freq_detail_expanded);
+        appCompatImageViewNoMoreData = findViewById(R.id.appcompatimageview_no_more_Data_training_freq_detail_expanded);
 
-        getDataFromServer(getIntent().getStringExtra(USER_ID), getIntent().getStringExtra(GAME_ID),
+        getDataFromServer(getIntent().getStringExtra(USER_ID),
                 "0", String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -89,7 +88,7 @@ public class DailyDetailReport extends AppCompatActivity {
                             && firstVisibleItemPosition >= 0
                             && totalItemCount >= PAGE_SIZE) {
                         getDataFromServer(getIntent().getStringExtra(USER_ID),
-                                getIntent().getStringExtra(GAME_ID), String.valueOf(data.size()),
+                                String.valueOf(data.size()),
                                 String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
                     }
                 }
@@ -103,8 +102,7 @@ public class DailyDetailReport extends AppCompatActivity {
                 fromDate = "";
                 toDate = "";
                 getDataFromServer(getIntent().getStringExtra(USER_ID),
-                        getIntent().getStringExtra(GAME_ID), "0",
-                        String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
+                        "0", String.valueOf(Const.PAGE_SIZE), fromDate, toDate);
             }
         });
     }
@@ -151,7 +149,7 @@ public class DailyDetailReport extends AppCompatActivity {
                         calendarTo.set(Calendar.MONTH, monthOfYearEnd);
                         calendarTo.set(Calendar.DAY_OF_MONTH, dayOfMonthEnd);
                         if (calendarFrom.getTimeInMillis() > calendarTo.getTimeInMillis()) {
-                            Toast.makeText(DailyDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TrainingFrequencyDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
                         } else {
                             swipeRefreshLayout.setRefreshing(true);
                             fromDate = DateUtil.formarDateForFilter(dayOfMonth, monthOfYear, year);
@@ -159,7 +157,6 @@ public class DailyDetailReport extends AppCompatActivity {
                             linearLayoutManager = null;
                             getDataFromServer(
                                     getIntent().getStringExtra(USER_ID),
-                                    getIntent().getStringExtra(GAME_ID),
                                     String.valueOf(0),
                                     String.valueOf(Const.PAGE_SIZE),
                                     fromDate,
@@ -182,53 +179,54 @@ public class DailyDetailReport extends AppCompatActivity {
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
-    private void getDataFromServer(String userId, String gameId, String offset, String count, String from, String to) {
+    private void getDataFromServer(String userId, String offset, String count, String from, String to) {
         if (!NetworkUtil.isConnected(this)) {
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             return;
         }
+        from = "8/20/2016";
         isLoading = true;
         ((AppSingleton) getApplicationContext())
                 .getApiInterface()
-                .dailyReport(userId, gameId, offset, count, from, to)
-                .enqueue(new Callback<DailyReportExpanded>() {
+                .trainingFrequency(userId, offset, count, from, to)
+                .enqueue(new Callback<TrainingFreqExpanded>() {
                     @Override
-                    public void onResponse(Call<DailyReportExpanded> call, Response<DailyReportExpanded> response) {
+                    public void onResponse(Call<TrainingFreqExpanded> call, Response<TrainingFreqExpanded> response) {
                         if (response.isSuccessful()) {
-                            DailyReportExpanded dailyReportExpanded = response.body();
-                            setDataToRecyclerview(dailyReportExpanded.getDailyReportDateAndScores().getDailyReportDateAndScores(),
-                                    dailyReportExpanded.getDailyReportDateAndScores().getDailyReportDateAndScores().size() < Const.PAGE_SIZE);
+                            TrainingFreqExpanded trainingFreqExpanded = response.body();
+                            setDataToRecyclerview(trainingFreqExpanded.getTrainingFreqExpandedData().getTrainingFrequencies(),
+                                    trainingFreqExpanded.getTrainingFreqExpandedData().getTrainingFrequencies().size() < Const.PAGE_SIZE);
                         } else {
-                            Toast.makeText(DailyDetailReport.this, "failed to get data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TrainingFrequencyDetailReport.this, "failed to get data", Toast.LENGTH_SHORT).show();
                         }
                         swipeRefreshLayout.setRefreshing(false);
                         isLoading = false;
                     }
 
                     @Override
-                    public void onFailure(Call<DailyReportExpanded> call, Throwable t) {
+                    public void onFailure(Call<TrainingFreqExpanded> call, Throwable t) {
                         isLoading = false;
                         swipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(DailyDetailReport.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingFrequencyDetailReport.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
     }
 
-    private void setDataToRecyclerview(ArrayList<DailyReportDateAndScore> dataToRecyclerview, boolean noMoreDataAvailable) {
+    private void setDataToRecyclerview(ArrayList<TrainingFrequency> dataToRecyclerview, boolean noMoreDataAvailable) {
         checkIfLastPage(noMoreDataAvailable);
         if (linearLayoutManager == null) {
-            linearLayoutManager = new LinearLayoutManager(DailyDetailReport.this);
+            linearLayoutManager = new LinearLayoutManager(TrainingFrequencyDetailReport.this);
             data = new ArrayList<>();
             data.addAll(dataToRecyclerview);
-            adapterDailyReport = new AdapterDailyReport(data);
-            adapterDailyReport.setNoMoreDataAvailable(noMoreDataAvailable);
+            adapterTrainingFrequency = new AdapterTrainingFrequency(data);
+            adapterTrainingFrequency.setNoMoreDataAvailable(noMoreDataAvailable);
             recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(adapterDailyReport);
+            recyclerView.setAdapter(adapterTrainingFrequency);
         } else {
             data.addAll(dataToRecyclerview);
-            adapterDailyReport.setNoMoreDataAvailable(noMoreDataAvailable);
-            adapterDailyReport.notifyDataSetChanged();
+            adapterTrainingFrequency.setNoMoreDataAvailable(noMoreDataAvailable);
+            adapterTrainingFrequency.notifyDataSetChanged();
         }
         showNoDataSignAsApplicable();
         showFilterRangeIfApplicable();

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.R;
+import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparison;
 
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 /**
  * Created by sagar on 11/20/2017.
  */
-public class AdapterGameComparison extends RecyclerView.Adapter<AdapterGameComparison.ViewHolder> {
+public class AdapterGameComparison extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<GameComparison> gameComparisons;
     private Context context;
+
+    private boolean noMoreDataAvailable = true;
 
     public AdapterGameComparison(ArrayList<GameComparison> gameComparisons, Context context) {
         this.gameComparisons = gameComparisons;
@@ -27,20 +30,38 @@ public class AdapterGameComparison extends RecyclerView.Adapter<AdapterGameCompa
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_comparison_recyclerview_item, parent, false));
+        if (viewType == Const.ITEM) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_comparison_recyclerview_item, parent, false));
+        } else if (viewType == Const.PROGRESS) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.progress, parent, false));
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textviewDate.setText(gameComparisons.get(position).getDate());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setNestedScrollingEnabled(false);
-        holder.recyclerView.setAdapter(new AdapterGameComparisonData(gameComparisons.get(position).getGameComparisonDataItems()));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == Const.ITEM) {
+            ((ViewHolder) holder).textviewDate.setText(gameComparisons.get(position).getDate());
+            ((ViewHolder) holder).recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            ((ViewHolder) holder).recyclerView.setNestedScrollingEnabled(false);
+            ((ViewHolder) holder).recyclerView.setAdapter(new AdapterGameComparisonData(gameComparisons.get(position).getGameComparisonDataItems()));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return gameComparisons.size();
+        if (gameComparisons.size() == 0)
+            return 0;
+        if (noMoreDataAvailable)
+            return gameComparisons.size();
+        return gameComparisons.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position < gameComparisons.size())
+            return Const.ITEM;
+        return Const.PROGRESS;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,5 +75,13 @@ public class AdapterGameComparison extends RecyclerView.Adapter<AdapterGameCompa
             textviewDate = itemView.findViewById(R.id.textview_date_game_comparison_recyclerview_item);
             recyclerView = itemView.findViewById(R.id.recyclerview_data_game_comparison_recyclerview_item);
         }
+    }
+
+    public boolean isNoMoreDataAvailable() {
+        return noMoreDataAvailable;
+    }
+
+    public void setNoMoreDataAvailable(boolean noMoreDataAvailable) {
+        this.noMoreDataAvailable = noMoreDataAvailable;
     }
 }

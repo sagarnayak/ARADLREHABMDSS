@@ -8,5 +8,6 @@
     <color name="deep_orange_500">#FF5722</color>
     <color name="grey_700">#616161</color>
     <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
     <color name="red_700">#D32F2F</color>
 </resources>
