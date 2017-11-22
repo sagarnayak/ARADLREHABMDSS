@@ -213,7 +213,8 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
     }
 
     private void editUser() {
-
+        startActivity(new Intent(PatientDetailsTables.this, EditUser.class)
+                .putExtra(EditUser.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
     @Override

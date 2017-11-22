@@ -62,7 +62,7 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textViewCount = itemView.findViewById(R.id.textview_game_name_edit_user_item);
+            textViewGame = itemView.findViewById(R.id.textview_game_name_edit_user_item);
             textViewCount = itemView.findViewById(R.id.textview_count_value_edit_user_item);
             textViewTimes = itemView.findViewById(R.id.textview_time_value_edit_user_item);
             appCompatImageViewEdit = itemView.findViewById(R.id.appcompatiamgeview_edit_edit_user_item);
@@ -86,7 +86,7 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
             appCompatImageViewEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callback.editUser();
+                    callback.editUser(getAdapterPosition());
                 }
             });
         }
@@ -96,7 +96,19 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
         UserDetailData userDetailDataTemp = userDetailData.get(position);
         userDetailData.remove(position);
         userDetailData.add(position - 1, userDetailDataTemp);
+        if (updateNextGameIds()) return;
         notifyDataSetChanged();
+    }
+
+    private boolean updateNextGameIds() {
+        for (int i = 0; i < userDetailData.size(); i++) {
+            if (i == (userDetailData.size() - 1)) {
+                userDetailData.get(i).setNextGameId(String.valueOf(-1));
+                return true;
+            }
+            userDetailData.get(i).setNextGameId(userDetailData.get(1 + 1).getGameId());
+        }
+        return false;
     }
 
     private void moveItemDown(int position) {
@@ -107,7 +119,7 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
     }
 
     public interface Callback {
-        void editUser();
+        void editUser(int index);
     }
 
     public ArrayList<UserDetailData> getUserDetailData() {

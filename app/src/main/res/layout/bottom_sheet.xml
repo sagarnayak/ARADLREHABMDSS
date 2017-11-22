@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="340dp"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <TextView
+        android:id="@+id/textview_game_name_edit_game_bottom_sheet"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eat (1)"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textview_count_edit_game_bottom_sheet"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Count"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/textview_game_name_edit_game_bottom_sheet" />
+
+    <EditText
+        android:id="@+id/edittext_count_edit_game_bottom_sheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/textview_count_edit_game_bottom_sheet"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_game_name_edit_game_bottom_sheet" />
+
+    <TextView
+        android:id="@+id/textview_time_edit_game_bottom_sheet"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Time"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/textview_count_edit_game_bottom_sheet" />
+
+    <EditText
+        android:id="@+id/edittext_time_edit_game_bottom_sheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/textview_time_edit_game_bottom_sheet"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_count_edit_game_bottom_sheet" />
+
+    <Button
+        android:id="@+id/button_edit_game_edit_game_bottom_sheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="OK"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_time_edit_game_bottom_sheet" />
+
+</android.support.constraint.ConstraintLayout>

@@ -110,7 +110,8 @@ public class PatientDetailsGraph extends AppCompatActivity implements AdapterPat
     }
 
     private void editUser() {
-
+        startActivity(new Intent(PatientDetailsGraph.this, EditUser.class)
+                .putExtra(EditUser.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
     @Override
