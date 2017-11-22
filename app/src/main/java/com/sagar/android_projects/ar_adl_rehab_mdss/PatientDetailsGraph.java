@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientDetailsGraph;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 
-public class PatientDetailsGraph extends AppCompatActivity {
+public class PatientDetailsGraph extends AppCompatActivity implements AdapterPatientDetailsGraph.CallBackPatientGraph {
 
     private RecyclerView recyclerView;
     private TextView textViewName;
@@ -88,7 +88,7 @@ public class PatientDetailsGraph extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new AdapterPatientDetailsGraph(this, dashboardData));
+        recyclerView.setAdapter(new AdapterPatientDetailsGraph(this, dashboardData, this));
     }
 
     @Override
@@ -131,5 +131,30 @@ public class PatientDetailsGraph extends AppCompatActivity {
                 .putExtra(PatientDetailsTables.USER_EMAIL, getIntent().getStringExtra(USER_EMAIL))
         );
         finish();
+    }
+
+    @Override
+    public void dailyReportClicked(String title, String gameId) {
+        startActivity(new Intent(PatientDetailsGraph.this, GraphViewDailyReportExpanded.class)
+                .putExtra(GraphViewDailyReportExpanded.TITLE, title)
+                .putExtra(GraphViewDailyReportExpanded.USER_ID, getIntent().getStringExtra(USER_ID))
+                .putExtra(GraphViewDailyReportExpanded.GAME_ID, gameId == null ? "1" : gameId));
+    }
+
+    @Override
+    public void trainingFrequencyClicked() {
+        startActivity(new Intent(PatientDetailsGraph.this, GraphViewTrainingFreqExpanded.class)
+                .putExtra(GraphViewTrainingFreqExpanded.TITLE, String.valueOf("Training Frequency"))
+                .putExtra(GraphViewTrainingFreqExpanded.USER_ID, getIntent().getStringExtra(USER_ID)));
+    }
+
+    @Override
+    public void gameComparisonClicked() {
+
+    }
+
+    @Override
+    public void gameRepetitionClicked() {
+
     }
 }

@@ -3,6 +3,7 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,15 +32,17 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
     private Context context;
     private DashboardData dashboardData;
+    private CallBackPatientGraph callBackPatientGraph;
 
     private static final int DAILY_REPORT = 123;
     private static final int TRAINING_FREQ = 124;
     private static final int GAME_COMP = 125;
     private static final int GAME_REP = 126;
 
-    public AdapterPatientDetailsGraph(Context context, DashboardData dashboardData) {
+    public AdapterPatientDetailsGraph(Context context, DashboardData dashboardData, CallBackPatientGraph callBackPatientGraph) {
         this.context = context;
         this.dashboardData = dashboardData;
+        this.callBackPatientGraph = callBackPatientGraph;
     }
 
     @Override
@@ -53,6 +56,7 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
         LineDataSet dataSet;
         ArrayList<ILineDataSet> lineDataSets = null;
         if (getItemViewType(position) == DAILY_REPORT) {
+            holder.gameId = dashboardData.getData().getDailyReports().get(position).getGameId();
             lineDataSets = new ArrayList<>();
             holder.textViewLavel.setText(dashboardData.getData().getDailyReports().get(position).getName());
             dats = new ArrayList<>();
@@ -184,12 +188,36 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
         private TextView textViewLavel;
         private LineChart lineChart;
+        private String gameId;
+        private AppCompatImageView appCompatImageViewMore;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             textViewLavel = itemView.findViewById(R.id.textview_lavel_patient_details_graph_item);
             lineChart = itemView.findViewById(R.id.linechart_patient_details_graph_item);
+            appCompatImageViewMore=itemView.findViewById(R.id.appcompatimageview_graph_daily_report_more);
+
+            appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (AdapterPatientDetailsGraph.this.getItemViewType(getAdapterPosition())) {
+                        case DAILY_REPORT:
+                            callBackPatientGraph.dailyReportClicked(
+                                    textViewLavel.getText().toString().trim(),
+                                    gameId
+                            );
+                            break;
+                        case TRAINING_FREQ:
+                            callBackPatientGraph.trainingFrequencyClicked();
+                            break;
+                        case GAME_COMP:
+                            callBackPatientGraph.gameComparisonClicked();
+                        case GAME_REP:
+                            callBackPatientGraph.gameRepetitionClicked();
+                    }
+                }
+            });
         }
     }
 
@@ -214,5 +242,15 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
         final int blue = (baseBlue + mRandom.nextInt(256)) / 2;
 
         return Color.rgb(red, green, blue);
+    }
+
+    public interface CallBackPatientGraph {
+        void dailyReportClicked(String title, String gameId);
+
+        void trainingFrequencyClicked();
+
+        void gameComparisonClicked();
+
+        void gameRepetitionClicked();
     }
 }

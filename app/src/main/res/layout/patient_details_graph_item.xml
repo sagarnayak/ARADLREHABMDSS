@@ -7,6 +7,7 @@
 
     <android.support.v7.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardview_patient_small_graph_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
@@ -35,6 +36,17 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textview_lavel_patient_details_graph_item"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/appcompatimageview_graph_daily_report_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:alpha=".5"
+                android:padding="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/more"/>
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

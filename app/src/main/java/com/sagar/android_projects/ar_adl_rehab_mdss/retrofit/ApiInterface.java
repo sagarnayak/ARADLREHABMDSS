@@ -2,6 +2,7 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.UserDetails;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.GameList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparisonExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.GameRepetation;
@@ -69,8 +70,8 @@ public interface ApiInterface {
     public Call<ArrayList<GameRepetation>> gameRepetation(@Path("gameId") String gameId,
                                                           @Path("sessionId") String sessionId);
 
-    @GET("userGame/{userId}")
-    public Call<ArrayList<UserGame>> userGame(@Path("userId") String userId);
+    @GET("get-user-game.php")
+    public Call<UserDetails> userGame(@Query("user_id") String userId);
 
     @POST("userGame")
     public Call<UserGameResponse> setUserGame(@Body UserGame userGame);
