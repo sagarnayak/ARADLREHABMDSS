@@ -196,7 +196,7 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
             textViewLavel = itemView.findViewById(R.id.textview_lavel_patient_details_graph_item);
             lineChart = itemView.findViewById(R.id.linechart_patient_details_graph_item);
-            appCompatImageViewMore=itemView.findViewById(R.id.appcompatimageview_graph_daily_report_more);
+            appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_graph_daily_report_more);
 
             appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -214,7 +214,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                         case GAME_COMP:
                             callBackPatientGraph.gameComparisonClicked();
                         case GAME_REP:
-                            callBackPatientGraph.gameRepetitionClicked();
+                            callBackPatientGraph.gameRepetitionClicked(textViewLavel.getText().toString(),
+                                    gameId);
                     }
                 }
             });
@@ -251,6 +252,6 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
         void gameComparisonClicked();
 
-        void gameRepetitionClicked();
+        void gameRepetitionClicked(String title, String gameId);
     }
 }

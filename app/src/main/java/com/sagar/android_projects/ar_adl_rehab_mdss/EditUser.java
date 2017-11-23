@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -115,8 +116,15 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
     private void setDataToAdapter(UserDetails userDetails) {
         userDetailData = new ArrayList<>();
         userDetailData.addAll(userDetails.getUserDetailData());
-        adapterEditUser = new AdapterEditUser(userDetails.getUserDetailData(), this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapterEditUser = new AdapterEditUser(userDetails.getUserDetailData(), this, this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean supportsPredictiveItemAnimations() {
+                return true;
+            }
+        };
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterEditUser);
     }
 

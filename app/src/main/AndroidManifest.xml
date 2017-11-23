@@ -75,6 +75,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".GraphViewGameComparison"
+            android:label="@string/title_activity_graph_view_game_comparison"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".GraphGameRepetitionExpanded"
+            android:label="@string/title_activity_graph_game_repetition_expanded"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

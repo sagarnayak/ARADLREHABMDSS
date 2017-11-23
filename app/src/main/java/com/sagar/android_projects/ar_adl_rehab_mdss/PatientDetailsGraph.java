@@ -151,11 +151,16 @@ public class PatientDetailsGraph extends AppCompatActivity implements AdapterPat
 
     @Override
     public void gameComparisonClicked() {
-
+        startActivity(new Intent(PatientDetailsGraph.this, GraphViewGameComparison.class)
+                .putExtra(GraphViewGameComparison.TITLE, String.valueOf("Game Comparison"))
+                .putExtra(GraphViewGameComparison.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
     @Override
-    public void gameRepetitionClicked() {
-
+    public void gameRepetitionClicked(String title, String gameId) {
+        startActivity(new Intent(PatientDetailsGraph.this, GraphViewDailyReportExpanded.class)
+                .putExtra(GraphViewDailyReportExpanded.TITLE, title)
+                .putExtra(GraphViewDailyReportExpanded.USER_ID, getIntent().getStringExtra(USER_ID))
+                .putExtra(GraphViewDailyReportExpanded.GAME_ID, gameId == null ? "1" : gameId));
     }
 }

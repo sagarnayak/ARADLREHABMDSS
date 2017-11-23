@@ -18,4 +18,7 @@
     <string name="title_activity_edit_user">EditUser</string>
     <string name="count">Count</string>
     <string name="time">Time</string>
+    <string name="title_activity_graph_view_game_comparison">GraphViewGameComparison</string>
+    <string name="title_activity_graph_game_repetition_expanded">GraphGameRepetitionExpanded
+    </string>
 </resources>

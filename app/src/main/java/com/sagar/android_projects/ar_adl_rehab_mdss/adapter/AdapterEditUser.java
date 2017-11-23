@@ -1,5 +1,7 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,10 +22,14 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
 
     private ArrayList<UserDetailData> userDetailData;
     private Callback callback;
+    private Context context;
 
-    public AdapterEditUser(ArrayList<UserDetailData> userDetailData, Callback callback) {
+    private boolean buttonActivated = true;
+
+    public AdapterEditUser(ArrayList<UserDetailData> userDetailData, Callback callback, Context context) {
         this.userDetailData = userDetailData;
         this.callback = callback;
+        this.context = context;
     }
 
     @Override
@@ -72,6 +78,9 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
             appCompatImageViewUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!buttonActivated)
+                        return;
+                    buttonActivated = false;
                     moveItemUp(getAdapterPosition());
                 }
             });
@@ -79,6 +88,9 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
             appCompatImageViewDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!buttonActivated)
+                        return;
+                    buttonActivated = false;
                     moveItemDown(getAdapterPosition());
                 }
             });
@@ -96,26 +108,48 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
         UserDetailData userDetailDataTemp = userDetailData.get(position);
         userDetailData.remove(position);
         userDetailData.add(position - 1, userDetailDataTemp);
-        if (updateNextGameIds()) return;
-        notifyDataSetChanged();
-    }
-
-    private boolean updateNextGameIds() {
-        for (int i = 0; i < userDetailData.size(); i++) {
-            if (i == (userDetailData.size() - 1)) {
-                userDetailData.get(i).setNextGameId(String.valueOf(-1));
-                return true;
-            }
-            userDetailData.get(i).setNextGameId(userDetailData.get(1 + 1).getGameId());
-        }
-        return false;
+        updateNextGameIds();
+        notifyItemMoved(position, (position - 1));
+        waitAndNotifyDataSetChanged();
     }
 
     private void moveItemDown(int position) {
         UserDetailData userDetailDataTemp = userDetailData.get(position);
         userDetailData.remove(position);
         userDetailData.add(position + 1, userDetailDataTemp);
-        notifyDataSetChanged();
+        updateNextGameIds();
+        notifyItemMoved(position, (position + 1));
+        waitAndNotifyDataSetChanged();
+    }
+
+    private void updateNextGameIds() {
+        for (int i = 0; i < userDetailData.size(); i++) {
+            if (i == (userDetailData.size() - 1)) {
+                userDetailData.get(i).setNextGameId(String.valueOf(-1));
+            } else {
+                userDetailData.get(i).setNextGameId(userDetailData.get(i + 1).getGameId());
+            }
+        }
+    }
+
+    private void waitAndNotifyDataSetChanged() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyDataSetChanged();
+                        }
+                    });
+                    buttonActivated = true;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public interface Callback {
@@ -124,10 +158,5 @@ public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHo
 
     public ArrayList<UserDetailData> getUserDetailData() {
         return userDetailData;
-    }
-
-    public void setUserDetailData(ArrayList<UserDetailData> userDetailData) {
-        this.userDetailData = userDetailData;
-        notifyDataSetChanged();
     }
 }
