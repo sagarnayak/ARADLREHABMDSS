@@ -119,6 +119,10 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
             ((ViewHolderGameRepetition) holder)
                     .recyclerView
                     .setAdapter(new AdapterGameRepetation(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems()));
+            ((ViewHolderGameRepetition) holder)
+                    .gameName = dashboardData.getData().getGameRepetations().get(positionToOperate).getGameName();
+            ((ViewHolderGameRepetition) holder)
+                    .gameId = dashboardData.getData().getGameRepetations().get(positionToOperate).getGameId();
         }
     }
 
@@ -206,6 +210,8 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
         private TextView textViewHeading;
         private RecyclerView recyclerView;
         private AppCompatImageView appCompatImageViewMore;
+        private String gameName;
+        private String gameId;
 
         ViewHolderGameRepetition(View itemView) {
             super(itemView);
@@ -217,7 +223,7 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
             appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callBackPatientDetails.gameRepetitionClicked();
+                    callBackPatientDetails.gameRepetitionClicked(gameName, gameId);
                 }
             });
         }
@@ -230,6 +236,6 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
 
         void gameComparisonClicked();
 
-        void gameRepetitionClicked();
+        void gameRepetitionClicked(String title, String gameId);
     }
 }

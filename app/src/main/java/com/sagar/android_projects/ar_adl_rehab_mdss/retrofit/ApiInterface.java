@@ -5,16 +5,13 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.Da
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.UserDetails;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.GameList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparisonExpanded;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.GameRepetation;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.GameRepetitionExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginRequest;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFreqExpanded;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingresponse.TrainingSessionResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.UserListResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.usergame.UserGame;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.usergame.UserGameResponse;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -62,13 +59,13 @@ public interface ApiInterface {
                                                        @Query("from") String from,
                                                        @Query("to") String to);
 
-    @GET("trainingSessions/{gameId}/{date}")
-    public Call<ArrayList<TrainingSessionResponse>> trainingSession(@Path("gameId") String gameId,
-                                                                    @Path("date") String date);
-
-    @GET("gameRepetation/{gameId}/{sessionId}")
-    public Call<ArrayList<GameRepetation>> gameRepetation(@Path("gameId") String gameId,
-                                                          @Path("sessionId") String sessionId);
+    @GET("game-repetation.php")
+    public Call<GameRepetitionExpanded> gameRepetition(@Query("user_id") String userId,
+                                                       @Query("game_id") String gameId,
+                                                       @Query("offset") String offset,
+                                                       @Query("count") String count,
+                                                       @Query("from") String from,
+                                                       @Query("to") String to);
 
     @GET("get-user-game.php")
     public Call<UserDetails> userGame(@Query("user_id") String userId);

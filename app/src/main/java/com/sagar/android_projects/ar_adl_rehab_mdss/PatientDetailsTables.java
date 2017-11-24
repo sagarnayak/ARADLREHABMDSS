@@ -239,7 +239,10 @@ public class PatientDetailsTables extends AppCompatActivity implements AdapterPa
                 .putExtra(GameComparisonDetailReport.USER_ID, getIntent().getStringExtra(USER_ID)));
     }
 
-    public void gameRepetitionClicked() {
-
+    public void gameRepetitionClicked(String gameName, String gameId) {
+        startActivity(new Intent(PatientDetailsTables.this, GameRepetitionDetailReport.class)
+                .putExtra(DailyDetailReport.TITLE, gameName)
+                .putExtra(DailyDetailReport.USER_ID, getIntent().getStringExtra(USER_ID))
+                .putExtra(DailyDetailReport.GAME_ID, gameId == null ? "1" : gameId));
     }
 }

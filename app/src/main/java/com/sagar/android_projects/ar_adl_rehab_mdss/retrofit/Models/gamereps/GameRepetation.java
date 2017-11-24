@@ -11,14 +11,20 @@ import java.util.ArrayList;
 public class GameRepetation {
     @SerializedName("level")
     private String level;
+    @SerializedName("gameName")
+    private String gameName;
+    @SerializedName("gameId")
+    private String gameId;
     @SerializedName("data")
     private ArrayList<GameRepetationDataItem> gameRepetationDataItems;
 
     public GameRepetation() {
     }
 
-    public GameRepetation(String level, ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
+    public GameRepetation(String level, String gameName, String gameId, ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
         this.level = level;
+        this.gameName = gameName;
+        this.gameId = gameId;
         this.gameRepetationDataItems = gameRepetationDataItems;
     }
 
@@ -28,6 +34,22 @@ public class GameRepetation {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public ArrayList<GameRepetationDataItem> getGameRepetationDataItems() {

@@ -21,4 +21,5 @@
     <string name="title_activity_graph_view_game_comparison">GraphViewGameComparison</string>
     <string name="title_activity_graph_game_repetition_expanded">GraphGameRepetitionExpanded
     </string>
+    <string name="title_activity_game_repetition_detail_report">GameRepetitionDetailReport</string>
 </resources>
