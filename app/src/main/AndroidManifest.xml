@@ -77,10 +77,12 @@
         <activity
             android:name=".GraphGameRepetitionExpanded"
             android:label="@string/title_activity_graph_game_repetition_expanded"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GameRepetitionDetailReport"
             android:label="@string/title_activity_game_repetition_detail_report"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
