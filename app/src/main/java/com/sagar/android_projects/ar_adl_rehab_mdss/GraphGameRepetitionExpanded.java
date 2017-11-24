@@ -12,14 +12,26 @@ import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.DateUtil;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.GameRepetitionExpanded;
+import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GraphGameRepetitionExpanded extends AppCompatActivity {
 
@@ -35,6 +47,8 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
     ArrayList<Entry> dats = null;
     LineDataSet dataSet;
     ArrayList<ILineDataSet> lineDataSets = null;
+
+    private GameRepetitionExpanded gameRepetitionExpanded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +135,114 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
     }
 
     private void getDataFromServer(String userId, String gameId, String offset, String count, String from, String to) {
+        from = "";
+        to = "";
+        if (!NetworkUtil.isConnected(this)) {
+            Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ((AppSingleton) getApplicationContext())
+                .getApiInterface()
+                .gameRepetition(userId, gameId, offset, count, from, to)
+                .enqueue(new Callback<GameRepetitionExpanded>() {
+                    @Override
+                    public void onResponse(Call<GameRepetitionExpanded> call, Response<GameRepetitionExpanded> response) {
+                        if (response.isSuccessful()) {
+                            gameRepetitionExpanded = response.body();
+                            setDataToGraph(response.body());
+                            showFilterRangeIfApplicable();
+                        } else {
+                            Toast.makeText(GraphGameRepetitionExpanded.this, "failed to get data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<GameRepetitionExpanded> call, Throwable t) {
+                        Toast.makeText(GraphGameRepetitionExpanded.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+    }
+
+    private void setDataToGraph(final GameRepetitionExpanded dataToGraph) {
+        int sizeOfData = 0;
+        if (dataToGraph.getGameRepetations().size() <= 1) {
+            Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        lineDataSets = new ArrayList<>();
+        dats = new ArrayList<>();
+        for (int i = 0; i < dataToGraph.getGameRepetations().size(); i++) {
+            for (int j = 0; j < dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().size(); j++) {
+                sizeOfData++;
+                dats.add(new Entry((float) (i + j),
+                        Float.parseFloat(dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().get(j).getScore())));
+            }
+        }
+
+        dataSet = new LineDataSet(dats, "Label");
+        dataSet.setColor(ResourcesCompat.getColor(getResources(), R.color.red_700, null));
+        dataSet.setValueTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null));
+        dataSet.setCircleColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null));
+        dataSet.setLineWidth(2f);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
+        lineDataSets.add(dataSet);
+        LineData lineData = new LineData(lineDataSets);
+        lineChart.setData(lineData);
+        lineChart.invalidate();
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.setDescription(null);
+
+        /*
+        total number of data / zoom = number of data showing
+        800 / 160 = 5
+         */
+        lineChart.zoom(sizeOfData / 10,
+                0f,
+                sizeOfData,
+                0f);
+        YAxis yAxis = lineChart.getAxisRight();
+        yAxis.setEnabled(false);
+        lineChart.moveViewToX(sizeOfData);
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setGranularity(1f);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.setViewPortOffsets(100f, 50f, 100f, 100f);
+        lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                int valueint = (int) value;
+                int indexToOperate = 0;
+                for (int i = 0; i < dataToGraph.getGameRepetations().size(); i++) {
+                    for (int j = 0; j < dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().size(); j++) {
+                        if (indexToOperate == valueint) {
+                            indexToOperate++;
+                            return String.valueOf(
+                                    gameRepetitionExpanded.getGameRepetations().get(i).getLevel() +
+                                            gameRepetitionExpanded.getGameRepetations().get(i).getGameRepetationDataItems().get(j).getRep()
+                            );
+                        }
+                    }
+                }
+                return "";
+            }
+        });
+    }
+
+    private void showFilterRangeIfApplicable() {
+        if (fromDate.length() != 0 && toDate.length() != 0) {
+            if (getSupportActionBar() != null) {
+                setTitle(String.valueOf(fromDate + "-" + toDate));
+            }
+        } else {
+            if (getSupportActionBar() != null) {
+                setTitle(getIntent().getStringExtra(TITLE));
+            }
+        }
     }
 
 }

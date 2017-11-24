@@ -22,4 +22,7 @@
     <string name="title_activity_graph_game_repetition_expanded">GraphGameRepetitionExpanded
     </string>
     <string name="title_activity_game_repetition_detail_report">GameRepetitionDetailReport</string>
+    <string name="title_activity_graph_view_game_repetation_expanded">
+        GraphViewGameRepetationExpanded
+    </string>
 </resources>

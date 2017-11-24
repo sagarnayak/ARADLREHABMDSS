@@ -43,45 +43,45 @@
             android:name=".DailyDetailReport"
             android:label="@string/title_activity_detail_report"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TrainingFrequencyDetailReport"
             android:label="@string/title_activity_training_frequency_detail_report"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GameComparisonDetailReport"
             android:label="@string/title_activity_game_comparison_detail_report"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GraphViewDailyReportExpanded"
             android:label="@string/title_activity_graph_view_details"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GraphViewTrainingFreqExpanded"
             android:label="@string/title_activity_graph_view_training_freq_expanded"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditUser"
             android:label="@string/title_activity_edit_user"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GraphViewGameComparison"
             android:label="@string/title_activity_graph_view_game_comparison"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GraphGameRepetitionExpanded"
             android:label="@string/title_activity_graph_game_repetition_expanded"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GameRepetitionDetailReport"
             android:label="@string/title_activity_game_repetition_detail_report"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
