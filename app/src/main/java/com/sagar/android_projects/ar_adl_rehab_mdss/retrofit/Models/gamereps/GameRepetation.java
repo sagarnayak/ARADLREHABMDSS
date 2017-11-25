@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class GameRepetation {
     @SerializedName("level")
     private String level;
-    @SerializedName("gameName")
+    @SerializedName("game_name")
     private String gameName;
-    @SerializedName("gameId")
+    @SerializedName("game_id")
     private String gameId;
     @SerializedName("data")
     private ArrayList<GameRepetationDataItem> gameRepetationDataItems;
