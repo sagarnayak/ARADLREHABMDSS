@@ -1,8 +1,10 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterEditUser;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUserResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.UserDetailData;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.UserDetails;
 import com.sagar.android_projects.ar_adl_rehab_mdss.singleton.AppSingleton;
+import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import java.util.ArrayList;
 
@@ -138,10 +142,10 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_apply) {
-            sendDataToServer();
+            showEditUserConformationDialog();
             return true;
         } else if (item.getItemId() == android.R.id.home) {
-            finish();
+          showEditWarning();
             return true;
         }
         return false;
@@ -149,10 +153,87 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
 
     @Override
     public void onBackPressed() {
-        finish();
+       showEditWarning();
     }
 
-    private void sendDataToServer() {
-        finish();
+    private void showEditWarning() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Warning");
+        alertDialog.setMessage("Do you want to leave without confirming the user edit?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                "Edit",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showEditUserConformationDialog();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+                "Leave",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        alertDialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void showEditUserConformationDialog() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Edit User");
+        alertDialog.setMessage("Do you want to confirm the user edit?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        editUser();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+                "No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        alertDialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void editUser() {
+        if (!NetworkUtil.isConnected(this)) {
+            Toast.makeText(this, "Please connect to internet", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUser editUser
+                = new com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUser();
+        editUser.setUserId(getIntent().getStringExtra(USER_ID));
+        editUser.setUserDetailData(adapterEditUser.getUserDetailData());
+        ((AppSingleton) getApplicationContext())
+                .getApiInterface()
+                .editUser(editUser, getIntent().getStringExtra(USER_ID))
+                .enqueue(new Callback<EditUserResponse>() {
+                    @Override
+                    public void onResponse(Call<EditUserResponse> call, Response<EditUserResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getStatus().equals(EditUserResponse.Response.SUCCESS.getCode())) {
+                                Toast.makeText(EditUser.this, "User Edited", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }
+                        Toast.makeText(EditUser.this, "failed to edit user", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<EditUserResponse> call, Throwable t) {
+                        Toast.makeText(EditUser.this, "error : " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

@@ -2,6 +2,7 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.DailyReportExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
+import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUserResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.UserDetails;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game.GameList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.GameComparisonExpanded;
@@ -10,8 +11,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginR
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.login.LoginResponse;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfrequency.TrainingFreqExpanded;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user.UserListResponse;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.usergame.UserGame;
-import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.usergame.UserGameResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -70,6 +69,7 @@ public interface ApiInterface {
     @GET("get-user-game.php")
     public Call<UserDetails> userGame(@Query("user_id") String userId);
 
-    @POST("userGame")
-    public Call<UserGameResponse> setUserGame(@Body UserGame userGame);
+    @POST("set-user-game.php")
+    public Call<EditUserResponse> editUser(@Body com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUser editUser,
+                                           @Query("user_id") String userId);
 }
