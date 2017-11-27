@@ -1,7 +1,6 @@
 package com.sagar.android_projects.ar_adl_rehab_mdss;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -178,7 +177,7 @@ public class GraphViewGameComparison extends AppCompatActivity {
             }
             gameIndexBeingOperated++;
             dataSet = new LineDataSet(dats, lavel);
-            dataSet.setColor(generateRandomColor());
+            dataSet.setColor(com.sagar.android_projects.ar_adl_rehab_mdss.util.Color.generateRandomColor());
             dataSet.setValueTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null));
             dataSet.setCircleColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null));
             dataSet.setLineWidth(2f);
@@ -236,22 +235,6 @@ public class GraphViewGameComparison extends AppCompatActivity {
         int lowerBound = 1;
         int upperBound = 100;
         return r.nextInt(upperBound - lowerBound) + lowerBound;
-    }
-
-    public int generateRandomColor() {
-        Random mRandom = new Random();
-        // This is the base color which will be mixed with the generated one
-        final int baseColor = Color.WHITE;
-
-        final int baseRed = Color.red(baseColor);
-        final int baseGreen = Color.green(baseColor);
-        final int baseBlue = Color.blue(baseColor);
-
-        final int red = (baseRed + mRandom.nextInt(256)) / 2;
-        final int green = (baseGreen + mRandom.nextInt(256)) / 2;
-        final int blue = (baseBlue + mRandom.nextInt(256)) / 2;
-
-        return Color.rgb(red, green, blue);
     }
 
 }
