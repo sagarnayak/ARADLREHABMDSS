@@ -168,12 +168,12 @@ public class GraphViewGameComparison extends AppCompatActivity {
             dats = new ArrayList<>();
             String lavel = "";
             for (int j = 0; j < gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().size(); j++) {
-                /*dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
-                        Float.parseFloat(gameComparisonExpanded.getGameComparisonExpandedData()
-                                .getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));*/
-                lavel = gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
                 dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
-                        Float.parseFloat(String.valueOf(getRandomNumber()))));
+                        Float.parseFloat(gameComparisonExpanded.getGameComparisonExpandedData()
+                                .getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                lavel = gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
+                /*dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
+                        Float.parseFloat(String.valueOf(getRandomNumber()))));*/
             }
             gameIndexBeingOperated++;
             dataSet = new LineDataSet(dats, lavel);

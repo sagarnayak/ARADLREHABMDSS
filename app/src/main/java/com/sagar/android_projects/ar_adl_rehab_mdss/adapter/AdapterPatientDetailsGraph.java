@@ -91,10 +91,10 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 dats = new ArrayList<>();
                 String lavel = "";
                 for (int j = 0; j < dashboardData.getData().getGameComparisons().size(); j++) {
-//                    dats.add(new Entry(Float.parseFloat(String.valueOf(j)), Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                    dats.add(new Entry(Float.parseFloat(String.valueOf(j)), Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
                     lavel = dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
-                    dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
-                            Float.parseFloat(String.valueOf(getRandomNumber()))));
+                    /*dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
+                            Float.parseFloat(String.valueOf(getRandomNumber()))));*/
                 }
                 gameIndexBeingOperated++;
                 dataSet = new LineDataSet(dats, lavel);
