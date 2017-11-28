@@ -4,18 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/22/2017.
- */
 public class DataOfDailyReportExpanded {
     @SerializedName("name")
     private String name;
     @SerializedName("data")
     private ArrayList<DailyReportDateAndScore> dailyReportDateAndScores;
 
+    @SuppressWarnings("unused")
     public DataOfDailyReportExpanded() {
     }
 
+    @SuppressWarnings("unused")
     public DataOfDailyReportExpanded(String name, ArrayList<DailyReportDateAndScore> dailyReportDateAndScores) {
         this.name = name;
         this.dailyReportDateAndScores = dailyReportDateAndScores;
@@ -33,6 +32,7 @@ public class DataOfDailyReportExpanded {
         return dailyReportDateAndScores;
     }
 
+    @SuppressWarnings("unused")
     public void setDailyReportDateAndScores(ArrayList<DailyReportDateAndScore> dailyReportDateAndScores) {
         this.dailyReportDateAndScores = dailyReportDateAndScores;
     }

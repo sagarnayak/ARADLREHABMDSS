@@ -18,10 +18,15 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.Da
 
 public class PatientDetailsGraph extends AppCompatActivity implements AdapterPatientDetailsGraph.CallBackPatientGraph {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private RecyclerView recyclerView;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewName;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textviewAgeAndGender;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewCondition;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewMobileAndEmail;
     private FloatingActionButton floatingActionButton;
 

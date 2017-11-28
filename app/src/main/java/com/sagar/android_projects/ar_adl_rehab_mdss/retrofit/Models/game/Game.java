@@ -2,9 +2,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.game;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class Game {
     @SerializedName("id")
@@ -12,9 +9,11 @@ public class Game {
     @SerializedName("name")
     private String name;
 
+    @SuppressWarnings("unused")
     public Game() {
     }
 
+    @SuppressWarnings("unused")
     public Game(String id, String name) {
         this.id = id;
         this.name = name;

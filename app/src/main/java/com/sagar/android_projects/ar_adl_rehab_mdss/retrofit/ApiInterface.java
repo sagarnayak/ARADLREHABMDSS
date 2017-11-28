@@ -19,9 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by sagar on 11/16/2017.
- */
+
 public interface ApiInterface {
 
     @POST("login.php")

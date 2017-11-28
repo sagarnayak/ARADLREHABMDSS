@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import static com.sagar.android_projects.ar_adl_rehab_mdss.core.Const.ITEM;
 import static com.sagar.android_projects.ar_adl_rehab_mdss.core.Const.PROGRESS;
 
-/**
- * Created by sagar on 11/9/2017.
- */
 public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<User> users;
@@ -44,9 +41,11 @@ public class AdapterPatientList extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AdapterPatientList.ViewHolder) {
             ((ViewHolder) holder).textViewName.setText(users.get(position).getName());
-            ((ViewHolder) holder).textViewAgeAndGender.setText(String.valueOf(users.get(position).getAge() + "," + users.get(position).getGender()));
+            ((ViewHolder) holder).textViewAgeAndGender
+                    .setText(String.valueOf(users.get(position).getAge() + "," + users.get(position).getGender()));
             ((ViewHolder) holder).textViewCondition.setText(users.get(position).getCondition());
-            ((ViewHolder) holder).textViewMobileAndEmail.setText(String.valueOf(users.get(position).getPhone() + "," + users.get(position).getEmail()));
+            ((ViewHolder) holder).textViewMobileAndEmail
+                    .setText(String.valueOf(users.get(position).getPhone() + "," + users.get(position).getEmail()));
         }
     }
 

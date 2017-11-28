@@ -2,18 +2,18 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
+
 public class GameComparisonDataItems {
     @SerializedName("name")
     private String name;
     @SerializedName("reps")
     private String reps;
 
+    @SuppressWarnings("unused")
     public GameComparisonDataItems() {
     }
 
+    @SuppressWarnings("unused")
     public GameComparisonDataItems(String name, String reps) {
         this.name = name;
         this.reps = reps;
@@ -31,6 +31,7 @@ public class GameComparisonDataItems {
         return reps;
     }
 
+    @SuppressWarnings("unused")
     public void setReps(String reps) {
         this.reps = reps;
     }

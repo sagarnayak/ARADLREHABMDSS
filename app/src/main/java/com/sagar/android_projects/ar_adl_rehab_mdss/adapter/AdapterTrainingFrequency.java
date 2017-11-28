@@ -12,9 +12,7 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfreq
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/17/2017.
- */
+
 public class AdapterTrainingFrequency extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<TrainingFrequency> trainingFrequencies;

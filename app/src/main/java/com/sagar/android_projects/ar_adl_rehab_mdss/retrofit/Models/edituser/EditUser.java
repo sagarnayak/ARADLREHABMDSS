@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by SAGAR on 11/25/2017.
- */
+
 public class EditUser {
     @SerializedName("user_id")
     private String userId;
@@ -16,6 +14,7 @@ public class EditUser {
     public EditUser() {
     }
 
+    @SuppressWarnings("unused")
     public EditUser(String userId, ArrayList<UserDetailData> userDetailData) {
         this.userId = userId;
         this.userDetailData = userDetailData;
@@ -29,6 +28,7 @@ public class EditUser {
         this.userId = userId;
     }
 
+    @SuppressWarnings("unused")
     public ArrayList<UserDetailData> getUserDetailData() {
         return userDetailData;
     }

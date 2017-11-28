@@ -2,9 +2,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.user;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class User {
     @SerializedName("userId")
@@ -24,10 +21,12 @@ public class User {
     @SerializedName("severity")
     private String severity;
 
+    @SuppressWarnings("unused")
     public User() {
     }
 
-    public User(String userId, String name, String gender, String age, String phone, String email, String condition, String severity) {
+    public User(String userId, String name, String gender, String age, String phone, String email,
+                String condition, String severity) {
         this.userId = userId;
         this.name = name;
         this.gender = gender;
@@ -58,6 +57,7 @@ public class User {
         return gender;
     }
 
+    @SuppressWarnings("unused")
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -66,6 +66,7 @@ public class User {
         return age;
     }
 
+    @SuppressWarnings("unused")
     public void setAge(String age) {
         this.age = age;
     }
@@ -74,6 +75,7 @@ public class User {
         return phone;
     }
 
+    @SuppressWarnings("unused")
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -82,6 +84,7 @@ public class User {
         return email;
     }
 
+    @SuppressWarnings("unused")
     public void setEmail(String email) {
         this.email = email;
     }
@@ -90,14 +93,17 @@ public class User {
         return condition;
     }
 
+    @SuppressWarnings("unused")
     public void setCondition(String condition) {
         this.condition = condition;
     }
 
+    @SuppressWarnings("unused")
     public String getSeverity() {
         return severity;
     }
 
+    @SuppressWarnings("unused")
     public void setSeverity(String severity) {
         this.severity = severity;
     }

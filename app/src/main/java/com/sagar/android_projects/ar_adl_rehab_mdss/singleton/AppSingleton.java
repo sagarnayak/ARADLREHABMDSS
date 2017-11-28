@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.sagar.android_projects.ar_adl_rehab_mdss.BuildConfig;
+import com.sagar.android_projects.ar_adl_rehab_mdss.core.Const;
 import com.sagar.android_projects.ar_adl_rehab_mdss.core.URLs;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.ApiInterface;
 
@@ -12,9 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by sagar on 11/16/2017.
- */
+
 public class AppSingleton extends Application {
     private ApiInterface apiInterface;
 
@@ -26,7 +25,7 @@ public class AppSingleton extends Application {
                 new HttpLoggingInterceptor.Logger() {
                     @Override
                     public void log(String message) {
-                        Log.i("MDSS_OkHttpLog", String.valueOf(message));
+                        Log.i(Const.LOG_TAG, String.valueOf(message));
                     }
                 }
         );

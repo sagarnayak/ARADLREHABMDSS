@@ -4,29 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/22/2017.
- * {
- * "status": "success",
- * "message": "Packages Found",
- * "data": [
- * {
- * "gameId": "1",
- * "gameName": "ReachTouch",
- * "customTime": "50.0",
- * "customCount": "3",
- * "nextGameId": "2"
- * },
- * {
- * "gameId": "2",
- * "gameName": "GripRelease",
- * "customTime": "50.0",
- * "customCount": "3",
- * "nextGameId": "2"
- * }
- * ]
- * }
- */
 public class UserDetails {
     @SerializedName("status")
     private String status;
@@ -35,9 +12,11 @@ public class UserDetails {
     @SerializedName("data")
     private ArrayList<UserDetailData> userDetailData;
 
+    @SuppressWarnings("unused")
     public UserDetails() {
     }
 
+    @SuppressWarnings("unused")
     public UserDetails(String status, String message, ArrayList<UserDetailData> userDetailData) {
         this.status = status;
         this.message = message;
@@ -48,6 +27,7 @@ public class UserDetails {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }
@@ -64,6 +44,7 @@ public class UserDetails {
         return userDetailData;
     }
 
+    @SuppressWarnings("unused")
     public void setUserDetailData(ArrayList<UserDetailData> userDetailData) {
         this.userDetailData = userDetailData;
     }

@@ -8,9 +8,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfreq
 
 import java.util.ArrayList;
 
-/**
- * Created by SAGAR on 11/20/2017.
- */
 
 public class DashboardArrays {
     @SerializedName("dailyReport")
@@ -22,10 +19,15 @@ public class DashboardArrays {
     @SerializedName("gameRepetation")
     private ArrayList<GameRepetation> gameRepetations;
 
+    @SuppressWarnings("unused")
     public DashboardArrays() {
     }
 
-    public DashboardArrays(ArrayList<DailyReport> dailyReports, ArrayList<TrainingFrequency> trainingFrequencies, ArrayList<GameComparison> gameComparisons, ArrayList<GameRepetation> gameRepetations) {
+    @SuppressWarnings("unused")
+    public DashboardArrays(ArrayList<DailyReport> dailyReports,
+                           ArrayList<TrainingFrequency> trainingFrequencies,
+                           ArrayList<GameComparison> gameComparisons,
+                           ArrayList<GameRepetation> gameRepetations) {
         this.dailyReports = dailyReports;
         this.trainingFrequencies = trainingFrequencies;
         this.gameComparisons = gameComparisons;
@@ -36,6 +38,7 @@ public class DashboardArrays {
         return dailyReports;
     }
 
+    @SuppressWarnings("unused")
     public void setDailyReports(ArrayList<DailyReport> dailyReports) {
         this.dailyReports = dailyReports;
     }
@@ -44,6 +47,7 @@ public class DashboardArrays {
         return trainingFrequencies;
     }
 
+    @SuppressWarnings("unused")
     public void setTrainingFrequencies(ArrayList<TrainingFrequency> trainingFrequencies) {
         this.trainingFrequencies = trainingFrequencies;
     }
@@ -52,6 +56,7 @@ public class DashboardArrays {
         return gameComparisons;
     }
 
+    @SuppressWarnings("unused")
     public void setGameComparisons(ArrayList<GameComparison> gameComparisons) {
         this.gameComparisons = gameComparisons;
     }
@@ -60,6 +65,7 @@ public class DashboardArrays {
         return gameRepetations;
     }
 
+    @SuppressWarnings("unused")
     public void setGameRepetations(ArrayList<GameRepetation> gameRepetations) {
         this.gameRepetations = gameRepetations;
     }

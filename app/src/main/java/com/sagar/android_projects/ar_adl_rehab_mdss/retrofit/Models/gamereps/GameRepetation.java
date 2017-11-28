@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class GameRepetation {
     @SerializedName("level")
@@ -18,10 +15,15 @@ public class GameRepetation {
     @SerializedName("data")
     private ArrayList<GameRepetationDataItem> gameRepetationDataItems;
 
+    @SuppressWarnings("unused")
     public GameRepetation() {
     }
 
-    public GameRepetation(String level, String gameName, String gameId, ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
+    @SuppressWarnings("unused")
+    public GameRepetation(String level,
+                          String gameName,
+                          String gameId,
+                          ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
         this.level = level;
         this.gameName = gameName;
         this.gameId = gameId;
@@ -32,6 +34,7 @@ public class GameRepetation {
         return level;
     }
 
+    @SuppressWarnings("unused")
     public void setLevel(String level) {
         this.level = level;
     }
@@ -40,6 +43,7 @@ public class GameRepetation {
         return gameName;
     }
 
+    @SuppressWarnings("unused")
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }
@@ -56,6 +60,7 @@ public class GameRepetation {
         return gameRepetationDataItems;
     }
 
+    @SuppressWarnings("unused")
     public void setGameRepetationDataItems(ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
         this.gameRepetationDataItems = gameRepetationDataItems;
     }

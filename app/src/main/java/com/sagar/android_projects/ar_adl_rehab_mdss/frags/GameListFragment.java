@@ -29,9 +29,6 @@ import retrofit2.Response;
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GameListFragment extends Fragment {
 
     RecyclerView recyclerView;

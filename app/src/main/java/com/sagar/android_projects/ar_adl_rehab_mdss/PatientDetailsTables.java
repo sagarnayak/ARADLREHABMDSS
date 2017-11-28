@@ -29,9 +29,13 @@ import retrofit2.Response;
 public class PatientDetailsTables extends AppCompatActivity implements AdapterPatientDetailsList.CallBackPatientDetails {
 
     private RecyclerView recyclerView;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewName;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textviewAgeAndGender;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewCondition;
+    @SuppressWarnings("FieldCanBeLocal")
     private TextView textViewMobileAndEmail;
     private ProgressBar progressBar;
     private FloatingActionButton floatingActionButton;

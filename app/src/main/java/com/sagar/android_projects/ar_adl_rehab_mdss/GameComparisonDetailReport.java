@@ -160,8 +160,8 @@ public class GameComparisonDetailReport extends AppCompatActivity {
                             Toast.makeText(GameComparisonDetailReport.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
                         } else {
                             swipeRefreshLayout.setRefreshing(true);
-                            fromDate = DateUtil.formarDateForFilter(dayOfMonth, monthOfYear, year);
-                            toDate = DateUtil.formarDateForFilter(dayOfMonthEnd, monthOfYearEnd, yearEnd);
+                            fromDate = DateUtil.formatDateForFilter(dayOfMonth, monthOfYear, year);
+                            toDate = DateUtil.formatDateForFilter(dayOfMonthEnd, monthOfYearEnd, yearEnd);
                             linearLayoutManager = null;
                             getDataFromServer(
                                     getIntent().getStringExtra(USER_ID),

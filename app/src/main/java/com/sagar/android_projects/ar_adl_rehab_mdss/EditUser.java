@@ -34,10 +34,12 @@ import retrofit2.Response;
 public class EditUser extends AppCompatActivity implements AdapterEditUser.Callback {
 
     private RecyclerView recyclerView;
+    @SuppressWarnings("FieldCanBeLocal")
     private ConstraintLayout constraintLayoutBottomSheet;
     private TextView textViewGameName;
     private EditText editTextCount;
     private EditText editTextTime;
+    @SuppressWarnings("FieldCanBeLocal")
     private Button buttonEditGame;
 
     public static final String USER_ID = "USER_ID";
@@ -145,7 +147,7 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
             showEditUserConformationDialog();
             return true;
         } else if (item.getItemId() == android.R.id.home) {
-          showEditWarning();
+            showEditWarning();
             return true;
         }
         return false;
@@ -153,7 +155,7 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
 
     @Override
     public void onBackPressed() {
-       showEditWarning();
+        showEditWarning();
     }
 
     private void showEditWarning() {

@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class UserListResponse {
     @SerializedName("status")
@@ -16,9 +13,11 @@ public class UserListResponse {
     @SerializedName("data")
     private ArrayList<User> data;
 
+    @SuppressWarnings("unused")
     public UserListResponse() {
     }
 
+    @SuppressWarnings("unused")
     public UserListResponse(String status, String message, ArrayList<User> data) {
         this.status = status;
         this.message = message;
@@ -29,6 +28,7 @@ public class UserListResponse {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }

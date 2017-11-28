@@ -2,9 +2,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.trainingfre
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class TrainingFrequency {
     @SerializedName("date")
@@ -12,9 +9,11 @@ public class TrainingFrequency {
     @SerializedName("reps")
     private String reps;
 
+    @SuppressWarnings("unused")
     public TrainingFrequency() {
     }
 
+    @SuppressWarnings("unused")
     public TrainingFrequency(String date, String reps) {
         this.date = date;
         this.reps = reps;
@@ -32,6 +31,7 @@ public class TrainingFrequency {
         return reps;
     }
 
+    @SuppressWarnings("unused")
     public void setReps(String reps) {
         this.reps = reps;
     }

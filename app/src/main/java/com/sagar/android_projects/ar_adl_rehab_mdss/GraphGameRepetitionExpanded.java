@@ -107,8 +107,8 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
                             Toast.makeText(GraphGameRepetitionExpanded.this, "From date can not be greater then To date", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            fromDate = DateUtil.formarDateForFilter(dayOfMonth, monthOfYear, year);
-                            toDate = DateUtil.formarDateForFilter(dayOfMonthEnd, monthOfYearEnd, yearEnd);
+                            fromDate = DateUtil.formatDateForFilter(dayOfMonth, monthOfYear, year);
+                            toDate = DateUtil.formatDateForFilter(dayOfMonthEnd, monthOfYearEnd, yearEnd);
                             getDataFromServer(
                                     getIntent().getStringExtra(USER_ID),
                                     getIntent().getStringExtra(GAME_ID),

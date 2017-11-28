@@ -2,9 +2,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by SAGAR on 11/25/2017.
- */
 
 public class EditUserResponse {
 
@@ -30,9 +27,11 @@ public class EditUserResponse {
     @SerializedName("data")
     private String data;
 
+    @SuppressWarnings("unused")
     public EditUserResponse() {
     }
 
+    @SuppressWarnings("unused")
     public EditUserResponse(String status, String message, String data) {
         this.status = status;
         this.message = message;
@@ -43,6 +42,7 @@ public class EditUserResponse {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }

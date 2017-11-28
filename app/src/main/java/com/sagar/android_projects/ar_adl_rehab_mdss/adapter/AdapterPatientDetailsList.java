@@ -12,9 +12,7 @@ import android.widget.TextView;
 import com.sagar.android_projects.ar_adl_rehab_mdss.R;
 import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.DashboardData;
 
-/**
- * Created by sagar on 11/16/2017.
- */
+
 public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
@@ -118,7 +116,8 @@ public class AdapterPatientDetailsList extends RecyclerView.Adapter<RecyclerView
                     .setNestedScrollingEnabled(false);
             ((ViewHolderGameRepetition) holder)
                     .recyclerView
-                    .setAdapter(new AdapterGameRepetation(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems()));
+                    .setAdapter(new AdapterGameRepetation(dashboardData.getData()
+                            .getGameRepetations().get(positionToOperate).getGameRepetationDataItems()));
             ((ViewHolderGameRepetition) holder)
                     .gameName = dashboardData.getData().getGameRepetations().get(positionToOperate).getGameName();
             ((ViewHolderGameRepetition) holder)

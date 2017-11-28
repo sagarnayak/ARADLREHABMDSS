@@ -2,9 +2,6 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class GameRepetationDataItem {
     @SerializedName("score")
@@ -12,9 +9,11 @@ public class GameRepetationDataItem {
     @SerializedName("rep")
     private String rep;
 
+    @SuppressWarnings("unused")
     public GameRepetationDataItem() {
     }
 
+    @SuppressWarnings("unused")
     public GameRepetationDataItem(String score, String rep) {
         this.score = score;
         this.rep = rep;
@@ -24,6 +23,7 @@ public class GameRepetationDataItem {
         return score;
     }
 
+    @SuppressWarnings("unused")
     public void setScore(String score) {
         this.score = score;
     }
@@ -32,6 +32,7 @@ public class GameRepetationDataItem {
         return rep;
     }
 
+    @SuppressWarnings("unused")
     public void setRep(String rep) {
         this.rep = rep;
     }

@@ -30,7 +30,9 @@ import java.util.List;
 
 public class Dashboard extends AppCompatActivity implements AdapterPatientList.AdapterPatientListCallback {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private TabLayout tabLayout;
+    @SuppressWarnings("FieldCanBeLocal")
     private ViewPager viewPager;
 
     @Override

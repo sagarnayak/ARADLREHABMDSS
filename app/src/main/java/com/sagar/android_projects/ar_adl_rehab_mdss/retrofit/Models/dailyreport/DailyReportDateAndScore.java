@@ -2,18 +2,17 @@ package com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 public class DailyReportDateAndScore {
     @SerializedName("date")
     private String date;
     @SerializedName("score")
     private String score;
 
+    @SuppressWarnings("unused")
     public DailyReportDateAndScore() {
     }
 
+    @SuppressWarnings("unused")
     public DailyReportDateAndScore(String date, String score) {
         this.date = date;
         this.score = score;
@@ -31,6 +30,7 @@ public class DailyReportDateAndScore {
         return score;
     }
 
+    @SuppressWarnings("unused")
     public void setScore(String score) {
         this.score = score;
     }

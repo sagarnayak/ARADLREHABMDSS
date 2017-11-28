@@ -4,17 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/16/2017.
- */
 
 public class GameList {
     @SerializedName("data")
     private ArrayList<Game> data;
 
+    @SuppressWarnings("unused")
     public GameList() {
     }
 
+    @SuppressWarnings("unused")
     public GameList(ArrayList<Game> data) {
         this.data = data;
     }

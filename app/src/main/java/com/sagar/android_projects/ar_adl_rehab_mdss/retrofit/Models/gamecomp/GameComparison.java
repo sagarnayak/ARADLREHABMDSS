@@ -4,19 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/16/2017.
- */
-
 public class GameComparison {
     @SerializedName("date")
     private String date;
     @SerializedName("data")
     private ArrayList<GameComparisonDataItems> gameComparisonDataItems;
 
+    @SuppressWarnings("unused")
     public GameComparison() {
     }
 
+    @SuppressWarnings("unused")
     public GameComparison(String date, ArrayList<GameComparisonDataItems> gameComparisonDataItems) {
         this.date = date;
         this.gameComparisonDataItems = gameComparisonDataItems;
@@ -34,6 +32,7 @@ public class GameComparison {
         return gameComparisonDataItems;
     }
 
+    @SuppressWarnings("unused")
     public void setGameComparisonDataItems(ArrayList<GameComparisonDataItems> gameComparisonDataItems) {
         this.gameComparisonDataItems = gameComparisonDataItems;
     }
