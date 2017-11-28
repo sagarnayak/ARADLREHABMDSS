@@ -12,9 +12,7 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dailyreport.
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/17/2017.
- */
+
 public class AdapterDailyReport extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<DailyReportDateAndScore> dailyReportDateAndScore;
@@ -74,6 +72,7 @@ public class AdapterDailyReport extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean isNoMoreDataAvailable() {
         return noMoreDataAvailable;
     }

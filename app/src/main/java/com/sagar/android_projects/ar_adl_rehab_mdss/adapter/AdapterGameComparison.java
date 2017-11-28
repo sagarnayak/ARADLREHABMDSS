@@ -14,9 +14,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.Gam
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/20/2017.
- */
 public class AdapterGameComparison extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<GameComparison> gameComparisons;
     private Context context;
@@ -31,9 +28,11 @@ public class AdapterGameComparison extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == Const.ITEM) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_comparison_recyclerview_item, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.game_comparison_recyclerview_item, parent, false));
         } else if (viewType == Const.PROGRESS) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.progress, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.progress, parent, false));
         }
         return null;
     }
@@ -44,7 +43,9 @@ public class AdapterGameComparison extends RecyclerView.Adapter<RecyclerView.Vie
             ((ViewHolder) holder).textviewDate.setText(gameComparisons.get(position).getDate());
             ((ViewHolder) holder).recyclerView.setLayoutManager(new LinearLayoutManager(context));
             ((ViewHolder) holder).recyclerView.setNestedScrollingEnabled(false);
-            ((ViewHolder) holder).recyclerView.setAdapter(new AdapterGameComparisonData(gameComparisons.get(position).getGameComparisonDataItems()));
+            ((ViewHolder) holder).recyclerView
+                    .setAdapter(new AdapterGameComparisonData(
+                            gameComparisons.get(position).getGameComparisonDataItems()));
         }
     }
 
@@ -77,6 +78,7 @@ public class AdapterGameComparison extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean isNoMoreDataAvailable() {
         return noMoreDataAvailable;
     }

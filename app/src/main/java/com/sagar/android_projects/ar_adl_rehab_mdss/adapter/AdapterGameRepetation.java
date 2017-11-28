@@ -11,19 +11,18 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.Gam
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/20/2017.
- */
+
 public class AdapterGameRepetation extends RecyclerView.Adapter<AdapterGameRepetation.ViewHolder> {
     private ArrayList<GameRepetationDataItem> gameRepetationDataItems;
 
-    public AdapterGameRepetation(ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
+    AdapterGameRepetation(ArrayList<GameRepetationDataItem> gameRepetationDataItems) {
         this.gameRepetationDataItems = gameRepetationDataItems;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_repetation_recyclerview_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.game_repetation_recyclerview_item, parent, false));
     }
 
     @Override

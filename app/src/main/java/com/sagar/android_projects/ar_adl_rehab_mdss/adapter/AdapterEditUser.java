@@ -14,9 +14,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.Use
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/22/2017.
- */
 
 public class AdapterEditUser extends RecyclerView.Adapter<AdapterEditUser.ViewHolder> {
 

@@ -11,19 +11,17 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamecomp.Gam
 
 import java.util.ArrayList;
 
-/**
- * Created by sagar on 11/20/2017.
- */
 public class AdapterGameComparisonData extends RecyclerView.Adapter<AdapterGameComparisonData.ViewHolder> {
     private ArrayList<GameComparisonDataItems> gameComparisonDataItems;
 
-    public AdapterGameComparisonData(ArrayList<GameComparisonDataItems> gameComparisonDataItems) {
+    AdapterGameComparisonData(ArrayList<GameComparisonDataItems> gameComparisonDataItems) {
         this.gameComparisonDataItems = gameComparisonDataItems;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_data_game_comparison_recyclerview_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_data_game_comparison_recyclerview_item, parent, false));
     }
 
     @Override
@@ -42,7 +40,7 @@ public class AdapterGameComparisonData extends RecyclerView.Adapter<AdapterGameC
         private TextView textViewGameName;
         private TextView textViewReps;
 
-         ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             textViewGameName = itemView.findViewById(R.id.textview_game_name_recyclerview_data_game_comp);

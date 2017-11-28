@@ -15,9 +15,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.gamereps.Gam
 
 import java.util.ArrayList;
 
-/**
- * Created by SAGAR on 11/24/2017.
- */
 
 public class AdapterGameRepetitionExpanded extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -50,7 +47,9 @@ public class AdapterGameRepetitionExpanded extends RecyclerView.Adapter<Recycler
             ((ViewHolder) holder).textViewHeading.setText(gameRepetations.get(position).getLevel());
             ((ViewHolder) holder).recyclerView.setLayoutManager(new LinearLayoutManager(context));
             ((ViewHolder) holder).recyclerView.setNestedScrollingEnabled(false);
-            ((ViewHolder) holder).recyclerView.setAdapter(new AdapterGameRepetation(gameRepetations.get(position).getGameRepetationDataItems()));
+            ((ViewHolder) holder).recyclerView
+                    .setAdapter(new AdapterGameRepetation(gameRepetations.get(position)
+                            .getGameRepetationDataItems()));
         }
     }
 
@@ -85,6 +84,7 @@ public class AdapterGameRepetitionExpanded extends RecyclerView.Adapter<Recycler
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean isNoMoreDataAvailable() {
         return noMoreDataAvailable;
     }

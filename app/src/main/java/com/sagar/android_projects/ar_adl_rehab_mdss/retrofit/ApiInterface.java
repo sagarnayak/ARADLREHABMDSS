@@ -25,51 +25,51 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @POST("login.php")
-    public Call<LoginResponse> login(@Body LoginRequest loginRequest);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @GET("userlist.php/{offset}/{count}")
-    public Call<UserListResponse> userList(@Path("offset") String offset, @Path("count") String count);
+    Call<UserListResponse> userList(@Path("offset") String offset, @Path("count") String count);
 
     @GET("gamelist.php/{offset}/{count}")
-    public Call<GameList> gameList(@Path("offset") String offset, @Path("count") String count);
+    Call<GameList> gameList(@Path("offset") String offset, @Path("count") String count);
 
     @GET("dashboard.php")
-    public Call<DashboardData> dashboardData(@Query("user_id") String userId);
+    Call<DashboardData> dashboardData(@Query("user_id") String userId);
 
     @GET("dailyreport.php")
-    public Call<DailyReportExpanded> dailyReport(@Query("user_id") String userId,
-                                                 @Query("game_id") String gameId,
+    Call<DailyReportExpanded> dailyReport(@Query("user_id") String userId,
+                                          @Query("game_id") String gameId,
+                                          @Query("offset") String offset,
+                                          @Query("count") String count,
+                                          @Query("from") String from,
+                                          @Query("to") String to);
+
+    @GET("training-frequency.php")
+    Call<TrainingFreqExpanded> trainingFrequency(@Query("user_id") String userId,
                                                  @Query("offset") String offset,
                                                  @Query("count") String count,
                                                  @Query("from") String from,
                                                  @Query("to") String to);
 
-    @GET("training-frequency.php")
-    public Call<TrainingFreqExpanded> trainingFrequency(@Query("user_id") String userId,
-                                                        @Query("offset") String offset,
-                                                        @Query("count") String count,
-                                                        @Query("from") String from,
-                                                        @Query("to") String to);
-
     @GET("game-comparison.php")
-    public Call<GameComparisonExpanded> gameComparison(@Query("user_id") String userId,
-                                                       @Query("offset") String offset,
-                                                       @Query("count") String count,
-                                                       @Query("from") String from,
-                                                       @Query("to") String to);
+    Call<GameComparisonExpanded> gameComparison(@Query("user_id") String userId,
+                                                @Query("offset") String offset,
+                                                @Query("count") String count,
+                                                @Query("from") String from,
+                                                @Query("to") String to);
 
     @GET("game-repetation.php")
-    public Call<GameRepetitionExpanded> gameRepetition(@Query("user_id") String userId,
-                                                       @Query("game_id") String gameId,
-                                                       @Query("offset") String offset,
-                                                       @Query("count") String count,
-                                                       @Query("from") String from,
-                                                       @Query("to") String to);
+    Call<GameRepetitionExpanded> gameRepetition(@Query("user_id") String userId,
+                                                @Query("game_id") String gameId,
+                                                @Query("offset") String offset,
+                                                @Query("count") String count,
+                                                @Query("from") String from,
+                                                @Query("to") String to);
 
     @GET("get-user-game.php")
-    public Call<UserDetails> userGame(@Query("user_id") String userId);
+    Call<UserDetails> userGame(@Query("user_id") String userId);
 
     @POST("set-user-game.php")
-    public Call<EditUserResponse> editUser(@Body com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUser editUser,
-                                           @Query("user_id") String userId);
+    Call<EditUserResponse> editUser(@Body com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.edituser.EditUser editUser,
+                                    @Query("user_id") String userId);
 }

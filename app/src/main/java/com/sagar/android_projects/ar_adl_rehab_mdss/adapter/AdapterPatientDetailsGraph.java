@@ -25,9 +25,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.retrofit.Models.dashboard.Da
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by sagar on 11/20/2017.
- */
 public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPatientDetailsGraph.ViewHolder> {
 
     private Context context;
@@ -47,7 +44,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_details_graph_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.patient_details_graph_item, parent, false));
     }
 
     @Override
@@ -61,7 +59,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             holder.textViewLavel.setText(dashboardData.getData().getDailyReports().get(position).getName());
             dats = new ArrayList<>();
             for (int i = 0; i < dashboardData.getData().getDailyReports().get(position).getData().size(); i++) {
-                dats.add(new Entry(Float.parseFloat(String.valueOf(i)), Float.parseFloat(dashboardData.getData().getDailyReports().get(position).getData().get(i).getScore())));
+                dats.add(new Entry(Float.parseFloat(String.valueOf(i)),
+                        Float.parseFloat(dashboardData.getData().getDailyReports().get(position).getData().get(i).getScore())));
             }
             dataSet = new LineDataSet(dats, "Label");
             dataSet.setColor(ResourcesCompat.getColor(context.getResources(), R.color.red_700, null));
@@ -75,7 +74,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             holder.textViewLavel.setText(String.valueOf("Training Frequency"));
             dats = new ArrayList<>();
             for (int i = 0; i < dashboardData.getData().getTrainingFrequencies().size(); i++) {
-                dats.add(new Entry(Float.parseFloat(String.valueOf(i)), Float.parseFloat(dashboardData.getData().getTrainingFrequencies().get(i).getReps())));
+                dats.add(new Entry(Float.parseFloat(String.valueOf(i)),
+                        Float.parseFloat(dashboardData.getData().getTrainingFrequencies().get(i).getReps())));
             }
             dataSet = new LineDataSet(dats, "Label");
             dataSet.setColor(ResourcesCompat.getColor(context.getResources(), R.color.red_700, null));
@@ -92,7 +92,14 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 dats = new ArrayList<>();
                 String lavel = "";
                 for (int j = 0; j < dashboardData.getData().getGameComparisons().size(); j++) {
-//                    dats.add(new Entry(Float.parseFloat(String.valueOf(j)), Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                    ////////////////////////////////////////////////////////////////////////////////
+                    /*
+                    for random value.
+                    use this in demo app only
+                     */
+                    /*dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
+                            Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));*/
+                    ////////////////////////////////////////////////////////////////////////////////
                     lavel = dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
                     dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
                             Float.parseFloat(String.valueOf(getRandomNumber()))));
@@ -112,7 +119,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             holder.textViewLavel.setText(dashboardData.getData().getGameRepetations().get(positionToOperate).getLevel());
             dats = new ArrayList<>();
             for (int i = 0; i < dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().size(); i++) {
-                dats.add(new Entry(Float.parseFloat(String.valueOf(i)), Float.parseFloat(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().get(i).getScore())));
+                dats.add(new Entry(Float.parseFloat(String.valueOf(i)),
+                        Float.parseFloat(dashboardData.getData().getGameRepetations().get(positionToOperate).getGameRepetationDataItems().get(i).getScore())));
             }
             dataSet = new LineDataSet(dats, "Label");
             dataSet.setColor(ResourcesCompat.getColor(context.getResources(), R.color.red_700, null));

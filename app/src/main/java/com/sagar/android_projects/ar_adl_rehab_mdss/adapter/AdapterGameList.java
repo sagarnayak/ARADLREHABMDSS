@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import static com.sagar.android_projects.ar_adl_rehab_mdss.core.Const.ITEM;
 import static com.sagar.android_projects.ar_adl_rehab_mdss.core.Const.PROGRESS;
 
-/**
- * Created by sagar on 11/9/2017.
- */
 public class AdapterGameList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Game> gameListPojos;
@@ -31,9 +28,11 @@ public class AdapterGameList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM)
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.game_list_item, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.game_list_item, parent, false));
         if (viewType == PROGRESS)
-            return new Progress(LayoutInflater.from(parent.getContext()).inflate(R.layout.progress, parent, false));
+            return new Progress(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.progress, parent, false));
         return null;
     }
 
@@ -63,6 +62,7 @@ public class AdapterGameList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        @SuppressWarnings("unused")
         private ConstraintLayout constraintLayoutContainer;
         private TextView textViewName;
 
@@ -76,7 +76,7 @@ public class AdapterGameList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class Progress extends RecyclerView.ViewHolder {
 
-        public Progress(View itemView) {
+        Progress(View itemView) {
             super(itemView);
         }
     }
