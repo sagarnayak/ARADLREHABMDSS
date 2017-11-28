@@ -138,7 +138,6 @@ public class GraphViewTrainingFreqExpanded extends AppCompatActivity {
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             return;
         }
-        from = "8/20/2016";
         ((AppSingleton) getApplicationContext())
                 .getApiInterface()
                 .trainingFrequency(userId, offset, count, from, to)

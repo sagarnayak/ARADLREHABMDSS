@@ -133,8 +133,6 @@ public class GraphViewDailyReportExpanded extends AppCompatActivity {
     }
 
     private void getDataFromServer(String userId, String gameId, String offset, String count, String from, String to) {
-        from = "";
-        to = "";
         if (!NetworkUtil.isConnected(this)) {
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             return;

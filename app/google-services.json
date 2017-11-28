@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "778401465163",
+    "firebase_url": "https://rehab-8867b.firebaseio.com",
+    "project_id": "rehab-8867b",
+    "storage_bucket": "rehab-8867b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778401465163:android:bbcd7d277a7700a8",
+        "android_client_info": {
+          "package_name": "com.sagar.android_projects.ar_adl_rehab_mdss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778401465163-mmbj9uat42i4vdrpq77eiamk5343js6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApvODWN0pYhvsXqgBFEsX032vzuW6u_qo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
