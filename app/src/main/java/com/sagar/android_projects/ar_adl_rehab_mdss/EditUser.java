@@ -228,8 +228,9 @@ public class EditUser extends AppCompatActivity implements AdapterEditUser.Callb
                                 Toast.makeText(EditUser.this, "User Edited", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
+                        } else {
+                            Toast.makeText(EditUser.this, "failed to edit user", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(EditUser.this, "failed to edit user", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
