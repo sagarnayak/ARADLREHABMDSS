@@ -27,6 +27,18 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"/>
 
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Y- Axis"/>
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X- Axis"/>
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/linechart_patient_details_graph_item"
                 android:layout_width="0dp"
