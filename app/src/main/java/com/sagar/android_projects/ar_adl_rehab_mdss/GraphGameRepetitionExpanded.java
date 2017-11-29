@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -36,6 +37,10 @@ import retrofit2.Response;
 public class GraphGameRepetitionExpanded extends AppCompatActivity {
 
     private LineChart lineChart;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewXAxisValue;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewYAxisValue;
 
     private String fromDate;
     private String toDate;
@@ -62,7 +67,13 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
             setTitle(getIntent().getStringExtra(TITLE));
         }
 
-        lineChart = findViewById(R.id.linechart_daily_report_expanded);
+        lineChart = findViewById(R.id.linechart_game_repetition_expanded);
+        textViewXAxisValue = findViewById(R.id.textview_x_axis_lavel_game_repetition_expanded);
+        textViewYAxisValue = findViewById(R.id.textview_y_axis_lavel_game_repetition_expanded);
+
+        textViewYAxisValue.setRotation(-90);
+        textViewXAxisValue.setText(getString(R.string.date));
+        textViewYAxisValue.setText(getString(R.string.mean_score));
 
         showDatePickerDialog();
     }
@@ -172,9 +183,9 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
         dats = new ArrayList<>();
         for (int i = 0; i < dataToGraph.getGameRepetations().size(); i++) {
             for (int j = 0; j < dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().size(); j++) {
-                sizeOfData++;
-                dats.add(new Entry((float) (i + j),
+                dats.add(new Entry((float) sizeOfData,
                         Float.parseFloat(dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().get(j).getScore())));
+                sizeOfData++;
             }
         }
 
@@ -210,23 +221,36 @@ public class GraphGameRepetitionExpanded extends AppCompatActivity {
         xAxis.setGranularity(1f);
         lineChart.getLegend().setEnabled(false);
         lineChart.setViewPortOffsets(100f, 50f, 100f, 100f);
+
+        final int finalSizeOfData = sizeOfData;
+
         lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int valueint = (int) value;
-                int indexToOperate = 0;
-                for (int i = 0; i < dataToGraph.getGameRepetations().size(); i++) {
-                    for (int j = 0; j < dataToGraph.getGameRepetations().get(i).getGameRepetationDataItems().size(); j++) {
-                        if (indexToOperate == valueint) {
-                            indexToOperate++;
-                            return String.valueOf(
-                                    gameRepetitionExpanded.getGameRepetations().get(i).getLevel() +
-                                            gameRepetitionExpanded.getGameRepetations().get(i).getGameRepetationDataItems().get(j).getRep()
-                            );
-                        }
+                int valueOfI = 0;
+                int valueOfJ = 0;
+                for (int i = 0; i < finalSizeOfData; i++) {
+                    if (valueint < dataToGraph.getGameRepetations().get(0).getGameRepetationDataItems().size()) {
+                        valueOfI = 0;
+                        valueOfJ = valueint;
+                        break;
+                    } else if (valueint < (i * dataToGraph.getGameRepetations().get(0).getGameRepetationDataItems().size())) {
+                        valueOfI = i - 1;
+                        valueOfJ = valueint - (dataToGraph.getGameRepetations().get(0).getGameRepetationDataItems().size() * (i - 1));
+                        break;
                     }
                 }
-                return "";
+                String[] lavelAry = gameRepetitionExpanded.getGameRepetations().get(valueOfI).getLevel().split(" ");
+                String lavel = "";
+                for (int k = 1; k < lavelAry.length; k++) {
+                    lavel += lavelAry[k];
+                }
+                lavel = lavel.trim();
+                lavel += "(" +
+                        gameRepetitionExpanded.getGameRepetations().get(valueOfI).getGameRepetationDataItems().get(valueOfJ).getRep()
+                        + ")";
+                return lavel;
             }
         });
     }

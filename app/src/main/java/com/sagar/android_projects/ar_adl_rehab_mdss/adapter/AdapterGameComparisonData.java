@@ -27,7 +27,7 @@ public class AdapterGameComparisonData extends RecyclerView.Adapter<AdapterGameC
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textViewGameName.setText(gameComparisonDataItems.get(position).getName());
-        holder.textViewReps.setText(gameComparisonDataItems.get(position).getReps());
+        holder.textViewScore.setText(gameComparisonDataItems.get(position).getGameScore());
     }
 
     @Override
@@ -38,13 +38,13 @@ public class AdapterGameComparisonData extends RecyclerView.Adapter<AdapterGameC
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewGameName;
-        private TextView textViewReps;
+        private TextView textViewScore;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             textViewGameName = itemView.findViewById(R.id.textview_game_name_recyclerview_data_game_comp);
-            textViewReps = itemView.findViewById(R.id.textview_reps_recyclerview_data_game_comp);
+            textViewScore = itemView.findViewById(R.id.textview_score_recyclerview_data_game_comp);
         }
     }
 }

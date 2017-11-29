@@ -51,6 +51,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
         LineDataSet dataSet;
         ArrayList<ILineDataSet> lineDataSets = null;
         if (getItemViewType(position) == DAILY_REPORT) {
+            holder.textViewXLabel.setText(context.getString(R.string.date));
+            holder.textViewYLabel.setText(context.getString(R.string.mean_score));
             holder.gameId = dashboardData.getData().getDailyReports().get(position).getGameId();
             lineDataSets = new ArrayList<>();
             holder.textViewLavel.setText(dashboardData.getData().getDailyReports().get(position).getName());
@@ -67,6 +69,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             lineDataSets.add(dataSet);
         } else if (getItemViewType(position) == TRAINING_FREQ) {
+            holder.textViewXLabel.setText(context.getString(R.string.date));
+            holder.textViewYLabel.setText(context.getString(R.string.repetitions));
             lineDataSets = new ArrayList<>();
             holder.textViewLavel.setText(String.valueOf("Training Frequency"));
             dats = new ArrayList<>();
@@ -82,6 +86,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             lineDataSets.add(dataSet);
         } else if (getItemViewType(position) == GAME_COMP) {
+            holder.textViewXLabel.setText(context.getString(R.string.date));
+            holder.textViewYLabel.setText(context.getString(R.string.mean_score));
             holder.textViewLavel.setText(String.valueOf("Game Comparison"));
             lineDataSets = new ArrayList<>();
             int gameIndexBeingOperated = 0;
@@ -90,7 +96,7 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 String lavel = "";
                 for (int j = 0; j < dashboardData.getData().getGameComparisons().size(); j++) {
                     dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
-                            Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                            Float.parseFloat(dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getGameScore())));
                     lavel = dashboardData.getData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
                     ////////////////////////////////////////////////////////////////////////////////
                     /*
@@ -111,6 +117,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
                 lineDataSets.add(dataSet);
             }
         } else if (getItemViewType(position) == GAME_REP) {
+            holder.textViewXLabel.setText(context.getString(R.string.score));
+            holder.textViewYLabel.setText(context.getString(R.string.repetitions));
             lineDataSets = new ArrayList<>();
             int positionToOperate = position - (dashboardData.getData().getDailyReports().size() + 1 + 1);
             holder.textViewLavel.setText(dashboardData.getData().getGameRepetations().get(positionToOperate).getLevel());
@@ -195,6 +203,8 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
         private LineChart lineChart;
         private String gameId;
         private AppCompatImageView appCompatImageViewMore;
+        private TextView textViewYLabel;
+        private TextView textViewXLabel;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -202,6 +212,10 @@ public class AdapterPatientDetailsGraph extends RecyclerView.Adapter<AdapterPati
             textViewLavel = itemView.findViewById(R.id.textview_lavel_patient_details_graph_item);
             lineChart = itemView.findViewById(R.id.linechart_patient_details_graph_item);
             appCompatImageViewMore = itemView.findViewById(R.id.appcompatimageview_graph_daily_report_more);
+            textViewYLabel = itemView.findViewById(R.id.textview_y_axis_lavel_patient_details_graph_item);
+            textViewXLabel = itemView.findViewById(R.id.textview_x_axis_lavel_patient_details_graph_item);
+
+            textViewYLabel.setRotation(-90);
 
             appCompatImageViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override

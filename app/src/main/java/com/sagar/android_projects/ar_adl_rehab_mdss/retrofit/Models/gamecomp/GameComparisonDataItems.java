@@ -6,17 +6,16 @@ import com.google.gson.annotations.SerializedName;
 public class GameComparisonDataItems {
     @SerializedName("name")
     private String name;
-    @SerializedName("reps")
-    private String reps;
+    @SerializedName("game_score")
+    private String gameScore;
 
     @SuppressWarnings("unused")
     public GameComparisonDataItems() {
     }
 
-    @SuppressWarnings("unused")
-    public GameComparisonDataItems(String name, String reps) {
+    public GameComparisonDataItems(String name, String gameScore) {
         this.name = name;
-        this.reps = reps;
+        this.gameScore = gameScore;
     }
 
     public String getName() {
@@ -27,12 +26,11 @@ public class GameComparisonDataItems {
         this.name = name;
     }
 
-    public String getReps() {
-        return reps;
+    public String getGameScore() {
+        return gameScore;
     }
 
-    @SuppressWarnings("unused")
-    public void setReps(String reps) {
-        this.reps = reps;
+    public void setGameScore(String gameScore) {
+        this.gameScore = gameScore;
     }
 }

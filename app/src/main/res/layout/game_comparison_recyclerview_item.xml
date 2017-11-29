@@ -27,13 +27,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textview_date_game_comparison_recyclerview_item"/>
 
     <TextView
-        android:id="@+id/textview_reps_heading_comparison_recyclerview_item"
+        android:id="@+id/textview_score_heading_comparison_recyclerview_item"
         style="@style/Base.TextAppearance.AppCompat.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="8dp"
-        android:text="@string/repetitions"
+        android:text="@string/mean_score"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_date_game_comparison_recyclerview_item"/>
 

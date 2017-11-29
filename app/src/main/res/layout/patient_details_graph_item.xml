@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardview_patient_small_graph_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,29 +23,38 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"/>
+                android:padding="8dp" />
 
             <TextView
+                android:id="@+id/textview_y_axis_lavel_patient_details_graph_item"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Y- Axis"/>
+                android:text="sagar"
+                app:layout_constraintBottom_toBottomOf="@+id/linechart_patient_details_graph_item"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linechart_patient_details_graph_item" />
 
             <TextView
+                android:id="@+id/textview_x_axis_lavel_patient_details_graph_item"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X- Axis"/>
+                android:layout_marginBottom="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/linechart_patient_details_graph_item"
+                app:layout_constraintRight_toRightOf="@+id/linechart_patient_details_graph_item" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/linechart_patient_details_graph_item"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintDimensionRatio="1:.5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_lavel_patient_details_graph_item"/>
+                app:layout_constraintTop_toBottomOf="@+id/textview_lavel_patient_details_graph_item" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/appcompatimageview_graph_daily_report_more"
@@ -58,7 +65,7 @@
                 android:padding="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/more"/>
+                app:srcCompat="@drawable/more" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

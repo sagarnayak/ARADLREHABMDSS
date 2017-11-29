@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                             tools:context="com.sagar.android_projects.ar_adl_rehab_mdss.GameRepetitionDetailReport"
-                                             tools:showIn="@layout/activity_game_repetition_detail_report">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sagar.android_projects.ar_adl_rehab_mdss.GameRepetitionDetailReport"
+    tools:showIn="@layout/activity_game_repetition_detail_report">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/appcompatimageview_no_more_Data_game_repetition_expanded"
@@ -17,29 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_data_available"/>
-
-    <TextView
-        android:id="@+id/textview_score_heading_game_repetition_expanded"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/score"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/textview_repetition_heading_game_repetition_expanded"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/repetitions"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:srcCompat="@drawable/no_data_available" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_game_repetition_expanded"
@@ -48,13 +26,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_score_heading_game_repetition_expanded"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_game_repetition_expanded"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

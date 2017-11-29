@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -36,6 +37,10 @@ import retrofit2.Response;
 public class GraphViewDailyReportExpanded extends AppCompatActivity {
 
     private LineChart lineChart;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewXAxisValue;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewYAxisValue;
 
     private String fromDate;
     private String toDate;
@@ -61,6 +66,12 @@ public class GraphViewDailyReportExpanded extends AppCompatActivity {
         }
 
         lineChart = findViewById(R.id.linechart_daily_report_expanded);
+        textViewXAxisValue = findViewById(R.id.textview_x_axis_lavel_daily_report_expanded);
+        textViewYAxisValue = findViewById(R.id.textview_y_axis_lavel_daily_report_expanded);
+
+        textViewYAxisValue.setRotation(-90);
+        textViewXAxisValue.setText(getString(R.string.date));
+        textViewYAxisValue.setText(getString(R.string.mean_score));
 
         showDatePickerDialog();
     }

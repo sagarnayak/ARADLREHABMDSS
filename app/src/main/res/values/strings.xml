@@ -25,9 +25,12 @@
     <string name="title_activity_graph_view_game_repetation_expanded">
         GraphViewGameRepetationExpanded
     </string>
-    <string name="no_working_functionality_required_just_prototype">No working functionality required, just prototype</string>
     <string name="date">Date</string>
     <string name="mean_score">Mean Score</string>
     <string name="repetitions">Repetitions</string>
     <string name="score">Score</string>
+    <string name="delete">Delete</string>
+    <string name="ok">OK</string>
+    <string name="message_to_patient">Message to patient</string>
+    <string name="send">send</string>
 </resources>

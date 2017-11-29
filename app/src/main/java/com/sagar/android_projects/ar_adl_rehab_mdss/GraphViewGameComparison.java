@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -29,7 +30,6 @@ import com.sagar.android_projects.ar_adl_rehab_mdss.util.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +46,10 @@ public class GraphViewGameComparison extends AppCompatActivity {
     private String toDate = "";
 
     private LineChart lineChart;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewXAxisValue;
+    @SuppressWarnings("FieldCanBeLocal")
+    private TextView textViewYAxisValue;
 
     ArrayList<Entry> dats = null;
     LineDataSet dataSet;
@@ -64,6 +68,12 @@ public class GraphViewGameComparison extends AppCompatActivity {
         }
 
         lineChart = findViewById(R.id.linechart_game_comparison_expanded);
+        textViewXAxisValue = findViewById(R.id.textview_x_axis_lavel_game_comparison_expanded);
+        textViewYAxisValue = findViewById(R.id.textview_y_axis_lavel_game_comparison_expanded);
+
+        textViewYAxisValue.setRotation(-90);
+        textViewXAxisValue.setText(getString(R.string.date));
+        textViewYAxisValue.setText(getString(R.string.mean_score));
 
         showDatePickerDialog();
     }
@@ -162,6 +172,10 @@ public class GraphViewGameComparison extends AppCompatActivity {
     }
 
     private void setDataToGraph(final GameComparisonExpanded gameComparisonExpanded) {
+        if (gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().size()==0){
+            Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+            return;
+        }
         lineDataSets = new ArrayList<>();
         int gameIndexBeingOperated = 0;
         for (int i = 0; i < gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().get(0).getGameComparisonDataItems().size(); i++) {
@@ -170,10 +184,10 @@ public class GraphViewGameComparison extends AppCompatActivity {
             for (int j = 0; j < gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().size(); j++) {
                 dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
                         Float.parseFloat(gameComparisonExpanded.getGameComparisonExpandedData()
-                                .getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getReps())));
+                                .getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getGameScore())));
                 lavel = gameComparisonExpanded.getGameComparisonExpandedData().getGameComparisons().get(j).getGameComparisonDataItems().get(gameIndexBeingOperated).getName();
                 /*dats.add(new Entry(Float.parseFloat(String.valueOf(j)),
-                        Float.parseFloat(String.valueOf(getRandomNumber()))));*/
+                        Float.parseFloat(String.valueOf(Random.getRandomNumber()))));*/
             }
             gameIndexBeingOperated++;
             dataSet = new LineDataSet(dats, lavel);
@@ -228,13 +242,6 @@ public class GraphViewGameComparison extends AppCompatActivity {
                 setTitle(getIntent().getStringExtra(TITLE));
             }
         }
-    }
-
-    private int getRandomNumber() {
-        Random r = new Random();
-        int lowerBound = 1;
-        int upperBound = 100;
-        return r.nextInt(upperBound - lowerBound) + lowerBound;
     }
 
 }
