@@ -15,11 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.sagar.android_projects.ar_adl_rehab_mdss.adapter.AdapterPatientList;
 import com.sagar.android_projects.ar_adl_rehab_mdss.frags.GameListFragment;
 import com.sagar.android_projects.ar_adl_rehab_mdss.frags.PatientListFragment;
@@ -51,8 +46,6 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
-        checkIfAllowed();
     }
 
     @Override
@@ -182,48 +175,5 @@ public class Dashboard extends AppCompatActivity implements AdapterPatientList.A
                 }
             }
         }).start();
-    }
-
-    private void checkIfAllowed() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference refForUser = database.getReference().child("allowed");
-
-        refForUser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    if (dataSnapshot.exists()) {
-                        if (dataSnapshot.getValue().equals("no")) {
-                            showNotAllowed();
-                        }
-                    } else {
-                        refForUser.setValue("To be applied");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void showNotAllowed() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Warning");
-        alertDialog.setMessage("Your trail period is finished");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,
-                "ok",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
     }
 }
